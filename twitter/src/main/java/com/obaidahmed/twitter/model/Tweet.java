@@ -17,10 +17,10 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import lombok.Data;
+
+
 
 @Entity
-@Data
 @Table(name="tweets")
 public class Tweet {
 	@Id
@@ -30,6 +30,7 @@ public class Tweet {
 	private Date createdAt;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
+	
 	@PrePersist
 	protected void onCreate(){
 	this.createdAt = new Date();
@@ -54,13 +55,98 @@ public class Tweet {
 	private List<Tweet> replyTweets = new ArrayList<>();
 	
 	@ManyToMany
-	private List<User> UserRetweets = new ArrayList<>();
+	private List<User> retweetUser = new ArrayList<>();
 	
 	@ManyToOne
 	private Tweet replyFor;
 	
 	private boolean isReply;
 	private boolean isTweet;
+	
+	
+	public Tweet() {
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	public String getVideo() {
+		return video;
+	}
+	public void setVideo(String video) {
+		this.video = video;
+	}
+	public List<Like> getLikes() {
+		return likes;
+	}
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
+	}
+	public List<Tweet> getReplyTweets() {
+		return replyTweets;
+	}
+	public void setReplyTweets(List<Tweet> replyTweets) {
+		this.replyTweets = replyTweets;
+	}
+	
+	public List<User> getRetweetUser() {
+		return retweetUser;
+	}
+	public void setRetweetUser(List<User> retweetUser) {
+		this.retweetUser = retweetUser;
+	}
+	public Tweet getReplyFor() {
+		return replyFor;
+	}
+	public void setReplyFor(Tweet replyFor) {
+		this.replyFor = replyFor;
+	}
+	public boolean isReply() {
+		return isReply;
+	}
+	public void setReply(boolean isReply) {
+		this.isReply = isReply;
+	}
+	public boolean isTweet() {
+		return isTweet;
+	}
+	public void setTweet(boolean isTweet) {
+		this.isTweet = isTweet;
+	}
+	
 	
 	
 }

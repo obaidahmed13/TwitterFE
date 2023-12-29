@@ -40,5 +40,43 @@ public class Like {
 	
 	@ManyToOne
 	private Tweet tweet;
+	
+	
+	
+	public Like() {
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Tweet getTweet() {
+		return tweet;
+	}
+	public void setTweet(Tweet tweet) {
+		this.tweet = tweet;
+	}
+	
+	
 
 }
