@@ -26,7 +26,7 @@ public class CustomUserDetails implements UserDetailsService {
 		
 		
 		if (user==null) {
-			throw new UsernameNotFoundException("username not found with email"+username);
+			throw new UsernameNotFoundException("Username not found with email"+username);
 		}
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();

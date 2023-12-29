@@ -17,6 +17,7 @@ public class TweetController {
 	@Autowired
 	private UserService userService;
 	
-	
+	// Data transfer object
+	public ResponseEntity<TweetDto>
 
 }
