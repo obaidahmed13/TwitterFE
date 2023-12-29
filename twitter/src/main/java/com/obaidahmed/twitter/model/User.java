@@ -63,7 +63,7 @@ public class User {
 	private String backgroundImage;
 	private String bio;
 	private boolean req_user;
-	private boolean login_with_google;
+	private boolean isLogin_with_google;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
@@ -187,6 +187,13 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public boolean isLogin_with_google() {
+		return isLogin_with_google;
+	}
+	public void setLogin_with_google(boolean isLogin_with_google) {
+		this.isLogin_with_google = isLogin_with_google;
+	}
+	
 	
 	
 }

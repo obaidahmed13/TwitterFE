@@ -21,6 +21,8 @@ public class TweetDto {
 	
 	private int totalRetweets;
 	
+	private int totalReplies;
+	
 	private boolean isLiked;
 	
 	private boolean isRetweet;
@@ -124,6 +126,15 @@ public class TweetDto {
 	public void setReplyTweets(List<TweetDto> replyTweets) {
 		this.replyTweets = replyTweets;
 	}
+
+	public int getTotalReplies() {
+		return totalReplies;
+	}
+
+	public void setTotalReplies(int totalReplies) {
+		this.totalReplies = totalReplies;
+	}
+	
 	
 	
 
