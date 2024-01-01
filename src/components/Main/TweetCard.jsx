@@ -63,7 +63,7 @@ export default function TweetCard() {
             </div>
           </div>
           <div className="mt-2">
-            <div className="cursor-pointer">
+            <div onClick={()=> navigate(`/tweet/${3}`)} className="cursor-pointer">
               <p className="mb-2 p-0">It is new years!</p>
               <img
                 src="https://cdn.pixabay.com/photo/2014/12/21/07/49/fireworks-574739_1280.jpg"

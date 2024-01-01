@@ -38,7 +38,7 @@ export default function Profile() {
 
   return (
     <div>
-      <section className="z-50 flex items-center sticky top-0 bg-opacity-90">
+      <section className="bg-white z-50 flex items-center sticky top-0 bg-opacity-90">
         <BackspaceIcon className="cursor-pointer" onClick={handleBack} />
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">Name</h1>
       </section>
