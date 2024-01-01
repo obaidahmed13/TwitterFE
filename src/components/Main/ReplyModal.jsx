@@ -1,46 +1,88 @@
-import { Avatar, Button } from '@mui/material'
-import React, { useState } from 'react'
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import { Avatar } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import {useFormik} from 'formik'
-import * as Yup from 'yup';
 import ImageIcon from '@mui/icons-material/Image';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
-import TweetCard from './TweetCard';
+import { useState } from 'react';
 
 
 
-export default function Main() {
-    const [imageUpload, setImageUpload] = useState(false);
-    const [selectImage, setSelectImage] = useState(false);
-    
-    const validationSchema = Yup.object().shape({
-        content:Yup.string().required("Text is required"),
-    })
-    const handleSubmit=(values)=> {
-        console.log("values", values)
-    }
-    const formik=useFormik({
-        initialValues: {
-            content:"",
-            image:"",
-        },
-        onSubmit:handleSubmit,
-        validationSchema,
-    });
 
-    const handleSelectImage = (e)=> {
-        setImageUpload(true);
-        const imgUrl = e.target.files[0]
-        formik.setFieldValue("image", imgUrl);
-        setSelectImage(imgUrl)
-        setImageUpload(false);}
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  border: 'none',
+  boxShadow: 24,
+  p: 4,
+  outline: "none",
+  borderRadius: 4,
+};
+
+export default function ReplyModal({open, handleClose}) {
+  const [imageUpload, setImageUpload] = useState(false);
+  const [selectImage, setSelectImage] = useState(false);
+
+  const handleSubmit = (values) => {
+    console.log("handlesubmit", values)
+  }
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+        content: "",
+        image: "",
+        tweetId:4
+    },
+    onSubmit: handleSubmit
+  });
+
+  const handleSelectImage = (e)=> {
+    setImageUpload(true);
+    const imgUrl = e.target.files[0]
+    formik.setFieldValue("image", imgUrl);
+    setSelectImage(imgUrl)
+    setImageUpload(false);}
 
   return (
-    <div className='space-y-5'>
-        <section>
-            <h1 className='py-5 text-xl font-bold opacity-90'>Home</h1>
-        </section>
-        <section className={`pb-10`}>
+    <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+        <div className="flex space-x-5">
+        <Avatar
+          onClick={() => navigate(`/profile/${6}`)}
+          alt="username"
+          className="cursor-pointer"
+        />
+        <div className="w-full">
+          <div className="flex justify-between items-center">
+            <div className="flex cursor-pointer items-center space-x-2">
+              <span className="font-semibold">Name</span>
+              <span className="text-gray-600">@username</span>
+            </div>
+            
+          </div>
+          <div className="mt-2">
+            <div onClick={()=> navigate(`/tweet/${3}`)} className="cursor-pointer">
+              <p className="mb-2 p-0">It is new years! </p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <section className={`py-10`}>
             <div className='flex space-x-5'>
                 <Avatar 
                 alt='username' 
@@ -83,9 +125,9 @@ export default function Main() {
                 </div>
             </div>
         </section>
-        <section>
-            {[1,1,1,1,1].map((item)=> <TweetCard/>)}
-        </section>
+          
+        </Box>
+      </Modal>
     </div>
-
-  )}
+  );
+}

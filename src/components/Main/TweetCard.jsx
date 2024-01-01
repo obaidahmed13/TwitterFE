@@ -9,17 +9,19 @@ import FavoriteIcon from "@mui/icons-material/FavoriteBorder";
 import UploadIcon from "@mui/icons-material/FileUpload";
 import ChartIcon from "@mui/icons-material/BarChart";
 import FavFilledIcon from "@mui/icons-material/Favorite";
+import ReplyModal from "./ReplyModal";
+import { useState } from "react";
 
 export default function TweetCard() {
+  const [openReplyModal, setOpenReplyModal] = useState(false);
+  const handleOpenReplyModal = () => setOpenReplyModal(true);
+  const handleCloseReplyModal = () => setOpenReplyModal(false);
   const navigate = useNavigate();
 
   const handleDeleteTweet = () => {
     console.log("delete tweet");
   };
 
-  const handleOpenReplyModel = () => {
-    console.log("Open model");
-  };
 
   const handleCreateRetweet = () => {
     console.log("Handle Create Retweet");
@@ -28,6 +30,7 @@ export default function TweetCard() {
   const handleLikeTweet = () => {
     console.log("Handle Like Retweet");
   };
+  
 
   return (
     <div>
@@ -75,7 +78,7 @@ export default function TweetCard() {
               <div className="space-x-3 flex items-center text-gray-600">
                 <ChatIcon
                   className="cursor-pointer"
-                  onClick={handleOpenReplyModel}
+                  onClick={handleOpenReplyModal}
                 />
                 <p>43</p>
               </div>
@@ -113,7 +116,7 @@ export default function TweetCard() {
               <div className="space-x-3 flex items-center text-gray-600">
                 <ChartIcon
                   className="cursor-pointer"
-                  onClick={handleOpenReplyModel}
+                  onClick={handleOpenReplyModal}
                 />
                 <p>430</p>
               </div>
@@ -121,13 +124,16 @@ export default function TweetCard() {
               <div className="space-x-3 flex items-center text-gray-600">
                 <UploadIcon
                   className="cursor-pointer"
-                  onClick={handleOpenReplyModel}
+                  onClick={handleOpenReplyModal}
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+      <section>
+        <ReplyModal open={openReplyModal} handleClose={handleCloseReplyModal} />
+      </section>
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function RightBar() {
                 <p className='text-sm'>NBA Finals - LIVE</p>
                 <p className='font-bold'>Clippers vs Bucks</p>
             </div>
-            {[1,1,1,1,1,1].map((item)=>
+            {[1,1,1].map((item)=>
             <div className='flex justify-between w-full'>
             <div>
                 <p>Entertainment - Trending</p>
