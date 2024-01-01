@@ -1,8 +1,10 @@
 
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+
+import Authentication from './components/Authentication/Authentication';
 import Home from './pages/Home';
-import Authentication from './Authentication/Authentication';
+
 
 function App() {
   return (
