@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import Profile from '../components/Profile/Profile'
 import TweetDetails from '../components/TweetDetails/TweetDetails'
 
+
 export default function Home() {
   return (
     <Grid container item xs={12} className='px-5 lg:px-36 justify-between'>
@@ -19,13 +20,12 @@ export default function Home() {
             <Route path="/home" element={<Main/>}></Route>
             <Route path='/profile/:id' element={<Profile/>}></Route>
             <Route path='/tweet/:id' element={<TweetDetails/>}></Route>
-            
           </Routes>
         </Grid>
         <Grid item xs={0} lg={3} className='hidden lg:block w-full relative'>
           <RightBar/>
         </Grid>
-
+        
     </Grid>
   )
 }
