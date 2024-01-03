@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import SigninForm from './SigninForm';
+import SignupForm from './SignupForm';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const style = {
   position: 'absolute',
@@ -19,7 +21,13 @@ const style = {
 };
 
 export default function AuthModal({open, handleClose}) {
-  
+  const navigate = useNavigate()
+  const location = useLocation();
+  const handleNavigate = () => {
+    const path = location.pathname==="/signup"?"/signin":"/signup"
+    navigate(path)
+
+  }
   return (
     <div>
       
@@ -30,12 +38,18 @@ export default function AuthModal({open, handleClose}) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <h1 className='text-center font-bold text-3xl pb-10'>
+            Sign in to X
+          </h1>
+
+          {location.pathname==="/signup"?<SignupForm/>:<SigninForm/>}
+          <h1 className='text-center py-5 font-semibold text-lg text-gray-500'>
+          {location.pathname==="/signup"?"Already have an Account":"If you don't have an account"}
+          </h1>
+          <Button fullWidth variant='outlined' onClick={handleNavigate}
+          sx={{borderRadius:"29px", py:"15px"}}
+          > {location.pathname==="/signup"?"Signin":"Signup"}
+          </Button>
         </Box>
       </Modal>
     </div>
