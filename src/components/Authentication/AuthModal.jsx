@@ -16,7 +16,7 @@ const style = {
   border: 'none',
   boxShadow: 24,
   p: 4,
-  borderRadius:2,
+  borderRadius:4,
   outline: 'none',
 };
 
@@ -39,7 +39,7 @@ export default function AuthModal({open, handleClose}) {
       >
         <Box sx={style}>
           <h1 className='text-center font-bold text-3xl pb-10'>
-            Sign in to X
+          {location.pathname==="/signup"?"Create an Account":"Signin to X"}
           </h1>
 
           {location.pathname==="/signup"?<SignupForm/>:<SigninForm/>}

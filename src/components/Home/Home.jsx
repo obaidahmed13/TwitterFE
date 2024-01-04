@@ -1,11 +1,12 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import Navigation from '../components/Navigation/Navigation'
-import Main from '../components/Main/Main.jsx'
-import RightBar from '../components/RightBar/RightBar'
+import Navigation from '../Navigation/Navigation'
+import RightBar from '../RightBar/RightBar'
+import Main from '../Main/Main'
 import { Route, Routes } from 'react-router-dom'
-import Profile from '../components/Profile/Profile'
-import TweetDetails from '../components/TweetDetails/TweetDetails'
+import Profile from '../Profile/Profile'
+import TweetDetails from '../TweetDetails/TweetDetails'
+
 
 
 export default function Home() {

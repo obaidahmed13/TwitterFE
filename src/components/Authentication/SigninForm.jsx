@@ -2,9 +2,12 @@ import { Button, Grid, TextField } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useFormik } from "formik";
 import React from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
+import { loginUser } from "../../Store/Auth/Action";
 
 export default function SigninForm() {
+    const dispatch = useDispatch();
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid Email").required("Email is required"),
     password: Yup.string().required("Password is required"),
@@ -16,11 +19,12 @@ export default function SigninForm() {
     },
     validationSchema,
     onSubmit: (values) => {
+        dispatch(loginUser(values))
       console.log("form values", values);
     },
   });
   return (
-    <form>
+    <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -53,7 +57,8 @@ export default function SigninForm() {
         </Grid>
         <Grid item xs={12} className="mt-20">
           <Button
-            sx={{ borderRadius: "29px", py: "15px", bgcolor: blue[500] }}
+            sx={{ borderRadius: "29px", py: "15px", bgcolor: blue[400]}}
+            type="submit"
             fullWidth
             variant="contained"
             size="large"

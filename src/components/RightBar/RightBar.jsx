@@ -6,12 +6,12 @@ import MoreIcon from '@mui/icons-material/MoreHoriz'
 
 export default function RightBar() {
     const handleChangeTheme=() => {
-        console.log("Handle change them")
+        console.log("Handle change theme")
     }
   return (
     <div className='py-5 sticky top'>
         <div className='relative flex items-center'>
-            <input type="text" className='py-3' rounded-full text-gray-500 w-full pl-12 />
+            <input type="text" className='py-3 rounded-full text-gray-500 w-full pl-12' />
 
             <div className='absolute top-0 left-0 pl-3 pt-3'>
                 <SearchIcon className='text-gray-500' />

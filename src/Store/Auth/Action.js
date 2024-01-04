@@ -1,17 +1,18 @@
 import { API_BASE_URL } from "../../config/api"
 import axios from 'axios'
-import { GET_USER_PROFILE_FAILURE, GET_USER_PROFILE_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, REGISTER_USER_FAILURE, REGISTER_USER_SUCCESS } from "./ActionType"
+import { GET_USER_PROFILE_FAILURE, GET_USER_PROFILE_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT, REGISTER_USER_FAILURE, REGISTER_USER_SUCCESS } from "./ActionType"
 
 export const loginUser = (loginData)=> async(dispatch)=> {
     try {
         const {data} = await axios.post(`${API_BASE_URL}/auth/signin`, loginData)
+        console.log("loggedin user", data)
         if (data.jwt) {
             localStorage.setItem("jwt", data.jwt)
         }
         dispatch({type:LOGIN_USER_SUCCESS, payload:data.jwt})
     } catch (error) {
         console.log("error", error)
-        dispatch({type:LOGIN_USER_FAILURE, payload: error.message})
+        dispatch({type:LOGIN_USER_FAILURE, payload:error.message})
         
     }
 }
@@ -19,6 +20,7 @@ export const loginUser = (loginData)=> async(dispatch)=> {
 export const registerUser = (registerData)=> async(dispatch)=> {
     try {
         const {data} = await axios.post(`${API_BASE_URL}/auth/signup`, registerData)
+        console.log("created user", data)
         if (data.jwt) {
             localStorage.setItem("jwt", data.jwt)
         }
@@ -44,3 +46,10 @@ export const getUserProfile = (jwt)=> async(dispatch)=> {
         
     }
 }
+
+export const logout = ()=> async(dispatch)=> {
+    localStorage.removeItem("jwt")
+    dispatch({type: LOGOUT, payload:null})
+    
+}
+

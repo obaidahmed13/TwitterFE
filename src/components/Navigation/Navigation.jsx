@@ -2,9 +2,16 @@ import { useNavigate  } from "react-router-dom"
 import { NavigationMenu } from './NavigationMenu'
 import { Avatar, Button } from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout'
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../Store/Auth/Action";
 
 export default function Navigation() {
+    const {auth}=useSelector(store=>store)
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleLogout =() => {
+        dispatch(logout())
+    }
   return (
     <div className="h-screen sticky top-0">
         <div>
@@ -36,10 +43,10 @@ export default function Navigation() {
                 <div className="flex items-center space-x-3">
                     <Avatar alt="username"/>
                     <div>
-                        <span >Name</span><br/>
-                        <span className="opacity-70">@username</span>
+                        <span className="ml-1" >{auth.user?.fullName}</span><br/>
+                        <span className="opacity-60">@{auth.user?.fullName.split(" ").join("_").toLowerCase()}</span>
                     </div>
-                    <Button ><LogoutIcon/></Button>
+                    <Button><LogoutIcon onClick={handleLogout}/></Button>
 
                 </div>
 

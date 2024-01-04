@@ -2,12 +2,14 @@ import { Button, Grid } from "@mui/material";
 import React, { useState } from "react";
 import { GoogleLogin } from '@react-oauth/google';
 import AuthModal from "./AuthModal";
+import { blue } from "@mui/material/colors";
 
 
 export default function Authentication() {
   const[openAuthModal, setOpenAuthModal] = useState(false);
   const handleOpenAuthModal=()=> setOpenAuthModal(true);
   const handleCloseAuthModal=()=> setOpenAuthModal(false)
+
   return (
     <div>
       <Grid className="overflow-y-hidden" container>
@@ -24,7 +26,7 @@ export default function Authentication() {
         </Grid>
         <Grid className='px-10' lg={5} xs={12} >
           <h1 className='font-bold text-6xl mt-10'>Happening Now</h1>
-          <h1 className='font-bold text-3xl py-16' >Join Today</h1>
+          <h1 className='font-bold text-3xl pt-16 pb-10' >Join Today</h1>
           <div className='w-[60%]'>
             <div className='w-full'>
               <GoogleLogin  width={330} 
@@ -34,12 +36,13 @@ export default function Authentication() {
                 {
                 borderRadius: "29px",
                 py:"7px",
+                bgcolor: blue[400],
               }
               }>Create Account</Button>
-              <p className='text-sm mt-2'>By signup up, you agree to the Terms of Service and Provacy Policy, including Cookie Use. </p>
+              <p className='text-xs mt-2'>By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use. </p>
             </div> 
             <div>
-              <h1 className='font-bold text-xl my-5'>Already have an account?</h1>
+              <h1 className='font-bold text-xl mb-5 mt-8'>Already have an account?</h1>
             <Button onClick={handleOpenAuthModal} fullWidth variant="outlined" size="large" sx={
                 {
                 borderRadius: "29px",
