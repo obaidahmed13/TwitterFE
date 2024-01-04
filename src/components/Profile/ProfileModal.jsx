@@ -6,6 +6,9 @@ import { useFormik } from 'formik';
 import { Avatar, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close'
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserProfile } from '../../Store/Auth/Action';
+import { uploadToCloudinary } from '../../Utils/uploadToCloud';
 
 const style = {
   position: 'absolute',
@@ -23,29 +26,38 @@ const style = {
 
 export default function ProfileModal({open, handleClose}) {
   const [uploading, setUploading] = useState(false)
+  const dispatch = useDispatch();
+  const [selectedImage, setSelectedImage]= useState("")
+  const {auth} = useSelector((store)=>store)
 
   const handleSubmit=(values)=> {
+    dispatch(updateUserProfile(values))
     console.log("handle submit", values)
+    auth.user.req_user = true
+    handleClose()
+    setSelectedImage("")
   }
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async(e) => {
     setUploading(true);
 
     const{name}= e.target
-    const file = e.target.files[0]
+    const file = await uploadToCloudinary(e.target.files[0])
     formik.setFieldValue(name, file);
+    setSelectedImage(file)
     setUploading(false);
     
   }
+  console.log("auth", auth)
 
   const formik=useFormik({
     initialValues: {
-        fullName: "",
-        website:"",
-        location: "",
-        bio: "",
-        backgroundImage: "",
-        image:""
+        fullName: auth.findUser?.fullName || '',
+        website: auth.findUser?.website || '',
+        location: auth.findUser?.location || '',
+        bio: auth.findUser?.bio || '',
+        backgroundImage: auth.findUser?.backgroundImage || "",
+        image: auth.findUser?.image || "",
     },
     onSubmit: handleSubmit
   })
@@ -75,20 +87,23 @@ export default function ProfileModal({open, handleClose}) {
                             <div className='relative'>
                                 <img 
                                 className='w-full h-[12rem] object-cover object-center'
-                                src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-346529.jpg&fm=jpg" alt="bgimage" 
-                                onChange={handleImageChange}
-                                name="backgroundImage"
+                                src={auth.user?.backgroundImage || null} 
+                                alt="bgimage" 
                                 />
 
                                 <input 
                                 type='file' 
-                                className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer' />
+                                name= 'backgroundImage'
+                                className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer' 
+                                onChange={handleImageChange}
+                                />
                             </div>
                         </div>
                         <div className='w-full transform -translate-y-20 ml-4 h-[6rem]'>
                             <div className='relative '>
                                 <Avatar 
                                 sx={{width:"10rem", height:"10rem", border:"4px solid white"}}
+                                src={auth.user?.image || null}
                                 />
                                 <input type="file" 
                                 className='absolute top-0 left-0 w-[10rem] h-full opacity-0 cursor-pointer'
@@ -144,7 +159,7 @@ export default function ProfileModal({open, handleClose}) {
                         />
                         <div className='my-3'>
                             <p className='text-lg'>Birth Date . Edit</p>
-                            <p className='text-md font-semibold'>May 13, 2001</p>
+                            <p className='text-md font-semibold'>{auth.findUser?.birthDate}</p>
                         </div>
                         <p className='py-3 text-lg'>Edit Profile</p>
                     </div>

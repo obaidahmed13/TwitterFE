@@ -5,7 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../Store/Auth/Action";
 
-export default function Navigation() {
+export default function Navigation(){
     const {auth}=useSelector(store=>store)
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -25,14 +25,14 @@ export default function Navigation() {
             <div className="space-y-5">
                 {NavigationMenu.map((item)=> 
                 <div key={item.title} className='flex space-x-3 items-center cursor-pointer'
-                onClick={()=> item.title==="Profile"?navigate(`/profile/${5}`):navigate(item.path)}
+                onClick={()=> item.title==="Profile"?navigate(`/profile/${auth.user.id}`):navigate(item.path)}
                 >
                     {item.icon}
                 <p className='text-xl'>{item.title}</p>
                 </div>
                 )}
             </div>
-            <div className="py-10">
+            <div className="py-6">
                 <Button 
                 sx={{width:"100%", borderRadius:"29px", py:"15px", bgcolor: '#1e88e5'}} 
                 variant="contained">
@@ -41,7 +41,8 @@ export default function Navigation() {
             </div>
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                    <Avatar alt="username"/>
+                    <Avatar alt="user pic"
+                    src={auth.user.image}/>
                     <div>
                         <span className="ml-1" >{auth.user?.fullName}</span><br/>
                         <span className="opacity-60">@{auth.user?.fullName.split(" ").join("_").toLowerCase()}</span>

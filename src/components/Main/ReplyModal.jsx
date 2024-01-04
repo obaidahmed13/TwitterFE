@@ -43,11 +43,12 @@ export default function ReplyModal({open, handleClose, item}) {
     console.log("handlesubmit", values)
   }
   const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
         content: "",
         image: "",
-        tweetId:item.id
+        tweetId:item?.id
     },
     onSubmit: handleSubmit
   });
@@ -70,22 +71,22 @@ export default function ReplyModal({open, handleClose, item}) {
         <Box sx={style}>
         <div className="flex space-x-5">
         <Avatar
-          onClick={() => navigate(`/profile/${6}`)}
+          onClick={() => navigate(`/profile/${item?.user.id}`)}
           alt="username"
           className="cursor-pointer"
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
-              <span className="font-semibold">{item.user.fullName}</span>
-              <span className="text-gray-600">@{item.user.fullName.split(" ").join("_").toLowerCase()}</span>
+              <span className="font-semibold">{item?.user.fullName}</span>
+              <span className="text-gray-600">@{item?.user.fullName.split(" ").join("_").toLowerCase()}</span>
             </div>
             
           </div>
           <div className="mt-2">
-            <div onClick={()=> navigate(`/tweet/${item.id}`)} className="cursor-pointer">
-              <p className="mb-2 p-0">{item.content} </p>
-              {item.image? <img src={item.image} alt="contentimg" />: null}
+            <div onClick={()=> navigate(`/tweet/${item?.id}`)} className="cursor-pointer">
+              <p className="mb-2 p-0">{item?.content} </p>
+              {item?.image? <img src={item?.image} alt="contentimg" />: null}
             </div>
             
           </div>

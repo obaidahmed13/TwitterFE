@@ -11,7 +11,7 @@ import ChartIcon from "@mui/icons-material/BarChart";
 import FavFilledIcon from "@mui/icons-material/Favorite";
 import ReplyModal from "./ReplyModal";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRetweet, likeTweet } from "../../Store/Tweet/Action";
 
 export default function TweetCard({item}) {
@@ -20,6 +20,7 @@ export default function TweetCard({item}) {
   const handleCloseReplyModal = () => setOpenReplyModal(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {auth} = useSelector((store)=> store)
 
   const handleDeleteTweet = () => {
     console.log("delete tweet");
@@ -48,6 +49,7 @@ export default function TweetCard({item}) {
           onClick={() => navigate(`/profile/${item?.user.id}`)}
           alt="username"
           className="cursor-pointer"
+          src={auth.user.image}
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
@@ -73,7 +75,7 @@ export default function TweetCard({item}) {
           <div className="mt-2">
             <div onClick={()=> navigate(`/tweet/${item?.id}`)} className="cursor-pointer">
               <p className="mb-2 p-0">{item?.content}</p>
-              {item.image?<img
+              {item?.image?<img
                 src={item?.image}
                 alt=""
                 className="w-[28rem] border border-gray-400 p-2 rounded-md"

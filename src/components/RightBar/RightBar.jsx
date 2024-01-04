@@ -22,7 +22,7 @@ export default function RightBar() {
         </div>
         <section className='my-5 '>
             <h1 className='text-xl font-bold'>Get Verified</h1>
-            <h1 className='font-bold my-2'>Subscribe to unlock new featurees</h1>
+            <h1 className='font-bold my-2'>Subscribe to unlock new features</h1>
             <Button variant='contained' sx={{padding: "10px", paddingX: "20px", borderRadius: "25px"}}>
                 Get Verified
             </Button>

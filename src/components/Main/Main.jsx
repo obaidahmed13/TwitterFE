@@ -16,7 +16,7 @@ export default function Main() {
     const [imageUpload, setImageUpload] = useState(false);
     const [selectImage, setSelectImage] = useState(false);
     const dispatch = useDispatch();
-    const{tweet}= useSelector(store=>store)
+    const{tweet, auth}= useSelector(store=>store)
     console.log("tweet", tweet)
     const validationSchema = Yup.object().shape({
         content:Yup.string().required("Text is required"),
@@ -63,6 +63,7 @@ export default function Main() {
             <div className='flex space-x-5'>
                 <Avatar 
                 alt='username' 
+                src={auth.user.image}
                 />
                 <div className='w-full'> 
                     <form onSubmit={formik.handleSubmit}>

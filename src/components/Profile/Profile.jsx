@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Box, Button, Tab, Tabs } from "@mui/material";
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter'
 import LocationIcon from '@mui/icons-material/LocationOn';
@@ -10,15 +10,21 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TweetCard from "../Main/TweetCard";
 import ProfileModal from "./ProfileModal";
+import { useDispatch, useSelector } from "react-redux";
+import { findUserById, followUser } from "../../Store/Auth/Action";
+import { getUsersTweet } from "../../Store/Tweet/Action";
 
 
 export default function Profile() {
   const [tabValue, setTabValue] = useState("1")
   const navigate = useNavigate();
-
+  const {auth, tweet} = useSelector(store=>store)
   const handleBack = () => navigate(-1);
+  const dispatch = useDispatch()
+  const {id} = useParams()
 
   const handleFollowUser = () => {
+    dispatch(followUser(id))
     console.log("follow User");
   };
 
@@ -36,18 +42,24 @@ export default function Profile() {
       console.log("users tweets")
     }
   }
+  useEffect(()=> {
+    dispatch(findUserById(id)) 
+    dispatch(getUsersTweet(id))
+  }, [id])
+
 
   return (
     <div>
       <section className="bg-white z-50 flex items-center sticky top-0 bg-opacity-90">
         <BackspaceIcon className="cursor-pointer" onClick={handleBack} />
-        <h1 className="py-5 text-xl font-bold opacity-90 ml-5">Name</h1>
+        <h1 className="py-5 text-xl font-bold opacity-90 ml-5">{auth.findUser?.fullName}</h1>
       </section>
 
       <section>
         <img
           className="w-[100%] h-[15rem] object-cover"
-          src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg"
+          src={auth.findUser?.backgroundImage
+          }
           alt="bgimage"
         />
       </section>
@@ -58,9 +70,10 @@ export default function Profile() {
             className="transform -translate-y-24"
             alt="Name"
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
+            src={auth.findUser?.image || null}
           />
 
-          {true ? (
+          {auth.findUser?.req_user ? (
             <Button
               onClick={handleOpenProfile}
               variant="contained"
@@ -74,7 +87,7 @@ export default function Profile() {
               variant="contained"
               sx={{ borderRadius: "20px" }}
             >
-              {true? "Follow":"Unfollow"}
+              {auth.findUser?.followed? "Follow":"Unfollow"}
             </Button>
           )}
         </div>
@@ -82,13 +95,13 @@ export default function Profile() {
         <div>
           <div>
             <div className="flex items-center">
-              <h1 className="font-bold text-lg">Name</h1>
+              <h1 className="font-bold text-lg">{auth.findUser?.fullName}</h1>
             </div>
-            <h1 className="text-gray-600">@username
+            <h1 className="text-gray-600">@{auth.findUser?.fullName.split(" ").join("_").toLowerCase()}
             </h1>
           </div>
           <div className="mt-2 space-y-3">
-            <p>Hey I am creating this twitter app with react and springboot!</p>
+            <p className="overflow-hidden">{auth.findUser?.bio}</p>
             <div className="py-1 flex space-x-5">
               <div className="flex items-center text-gray-500">
                 <BusinessCenterIcon />
@@ -96,7 +109,7 @@ export default function Profile() {
               </div>
               <div className="flex items-center text-gray-500">
                 <LocationIcon />
-                <p className="ml-2">Florida</p>
+                <p className="ml-2">{auth.findUser?.location}</p>
               </div>
               <div className="flex items-center text-gray-500">
                 <CalendarIcon />
@@ -105,11 +118,11 @@ export default function Profile() {
             </div>
             <div className="flex items-center space-x-5">
             <div className="flex items-center space-x-1 font-semibold">
-                <span>450</span>
+                <span>{auth.findUser?.followers.length}</span>
                 <span className="text-gray-500">Followers</span>
               </div>
             <div className="flex items-center space-x-1 font-semibold">
-                <span>60</span>
+                <span>{auth.findUser?.following.length}</span>
                 <span className="text-gray-500">Following</span>
               </div>
             </div>
@@ -127,9 +140,9 @@ export default function Profile() {
             <Tab label="Likes" value="4" />
           </TabList>
         </Box>
-        <TabPanel value="1">Tweets
-        {[1,1,1,1,1].map((item)=><TweetCard/>)}</TabPanel>
-        <TabPanel value="2">Replies</TabPanel>
+        <TabPanel value="1" className="my-2" >Tweets
+        {tweet.tweets.map((item)=><TweetCard item={item} />)}</TabPanel>
+        <TabPanel value="2">Replies {tweet.tweet?.replyTweets?.map((item)=><TweetCard item={item} />)}</TabPanel>
         <TabPanel value="3">Media</TabPanel>
         <TabPanel value="4">Likes</TabPanel>
       </TabContext>
