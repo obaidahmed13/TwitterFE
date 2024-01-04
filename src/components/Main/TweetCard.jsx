@@ -11,12 +11,15 @@ import ChartIcon from "@mui/icons-material/BarChart";
 import FavFilledIcon from "@mui/icons-material/Favorite";
 import ReplyModal from "./ReplyModal";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createRetweet, likeTweet } from "../../Store/Tweet/Action";
 
-export default function TweetCard() {
+export default function TweetCard({item}) {
   const [openReplyModal, setOpenReplyModal] = useState(false);
   const handleOpenReplyModal = () => setOpenReplyModal(true);
   const handleCloseReplyModal = () => setOpenReplyModal(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleDeleteTweet = () => {
     console.log("delete tweet");
@@ -24,10 +27,12 @@ export default function TweetCard() {
 
 
   const handleCreateRetweet = () => {
+    dispatch(createRetweet(item?.id))
     console.log("Handle Create Retweet");
   };
 
   const handleLikeTweet = () => {
+    dispatch(likeTweet(item?.id))
     console.log("Handle Like Retweet");
   };
   
@@ -40,15 +45,15 @@ export default function TweetCard() {
       </div> */}
       <div className="flex space-x-5">
         <Avatar
-          onClick={() => navigate(`/profile/${6}`)}
+          onClick={() => navigate(`/profile/${item?.user.id}`)}
           alt="username"
           className="cursor-pointer"
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
-              <span className="font-semibold">Name</span>
-              <span className="text-gray-600">@username</span>
+              <span className="font-semibold">{item?.user?.fullName}</span>
+              <span className="text-gray-600">{item?.user?.fullName.split(" ").join("_").toLowerCase()}</span>
             </div>
             <div>
               <Button
@@ -66,13 +71,13 @@ export default function TweetCard() {
             </div>
           </div>
           <div className="mt-2">
-            <div onClick={()=> navigate(`/tweet/${3}`)} className="cursor-pointer">
-              <p className="mb-2 p-0">It is new years!</p>
-              <img
-                src="https://cdn.pixabay.com/photo/2014/12/21/07/49/fireworks-574739_1280.jpg"
+            <div onClick={()=> navigate(`/tweet/${item?.id}`)} className="cursor-pointer">
+              <p className="mb-2 p-0">{item?.content}</p>
+              {item.image?<img
+                src={item?.image}
                 alt=""
-                className="w-[28rem] border border-gray-400 p-5 rounded-md"
-              />
+                className="w-[28rem] border border-gray-400 p-2 rounded-md"
+              />:null}
             </div>
             <div className="py-5 flex flex-wrap justify-between items-center">
               <div className="space-x-3 flex items-center text-gray-600">
@@ -80,26 +85,26 @@ export default function TweetCard() {
                   className="cursor-pointer"
                   onClick={handleOpenReplyModal}
                 />
-                <p>43</p>
+                <p>{item?.totalReplies}</p>
               </div>
               <div
                 className={`${
-                  true ? "text-pink-600" : "text-gray-600"
+                  item?.retweet ? "text-pink-600" : "text-gray-600"
                 } space-x-5 flex items-center`}
               >
                 <RepeatIcon
                   onClick={handleCreateRetweet}
                   className="cursor-pointer"
                 />
-                <p>5</p>
+                <p>{item?.totalRetweets}</p>
               </div>
 
               <div
                 className={`${
-                  true ? "text-pink-600" : "text-gray-600"
+                  item?.liked ? "text-pink-600" : "text-gray-600"
                 } space-x-5 flex items-center`}
               >
-                {true ? (
+                {item?.liked ? (
                   <FavFilledIcon
                     onClick={handleLikeTweet}
                     className="cursor-pointer"
@@ -110,7 +115,7 @@ export default function TweetCard() {
                     className="cursor-pointer"
                   />
                 )}
-                <p>5</p>
+                <p>{item?.totalLikes}</p>
               </div>
 
               <div className="space-x-3 flex items-center text-gray-600">
@@ -132,7 +137,7 @@ export default function TweetCard() {
         </div>
       </div>
       <section>
-        <ReplyModal open={openReplyModal} handleClose={handleCloseReplyModal} />
+        <ReplyModal item={item} open={openReplyModal} handleClose={handleCloseReplyModal} />
       </section>
     </div>
   );

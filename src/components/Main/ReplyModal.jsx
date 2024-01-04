@@ -9,6 +9,8 @@ import ImageIcon from '@mui/icons-material/Image';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createTweetReply } from '../../Store/Tweet/Action';
 
 
 
@@ -27,11 +29,17 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ReplyModal({open, handleClose}) {
+export default function ReplyModal({open, handleClose, item}) {
   const [imageUpload, setImageUpload] = useState(false);
   const [selectImage, setSelectImage] = useState(false);
+  const dispatch = useDispatch()
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
+    dispatch(createTweetReply(values))
+    handleClose()
+    actions.resetForm();
+    setSelectImage("")
+    navigate(`/tweet/${item.id}`)
     console.log("handlesubmit", values)
   }
   const navigate = useNavigate();
@@ -39,7 +47,7 @@ export default function ReplyModal({open, handleClose}) {
     initialValues: {
         content: "",
         image: "",
-        tweetId:4
+        tweetId:item.id
     },
     onSubmit: handleSubmit
   });
@@ -69,14 +77,15 @@ export default function ReplyModal({open, handleClose}) {
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
-              <span className="font-semibold">Name</span>
-              <span className="text-gray-600">@username</span>
+              <span className="font-semibold">{item.user.fullName}</span>
+              <span className="text-gray-600">@{item.user.fullName.split(" ").join("_").toLowerCase()}</span>
             </div>
             
           </div>
           <div className="mt-2">
-            <div onClick={()=> navigate(`/tweet/${3}`)} className="cursor-pointer">
-              <p className="mb-2 p-0">It is new years! </p>
+            <div onClick={()=> navigate(`/tweet/${item.id}`)} className="cursor-pointer">
+              <p className="mb-2 p-0">{item.content} </p>
+              {item.image? <img src={item.image} alt="contentimg" />: null}
             </div>
             
           </div>

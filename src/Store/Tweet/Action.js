@@ -3,7 +3,7 @@ import { FIND_TWEET_BY_ID_FAILURE, FIND_TWEET_BY_ID_SUCCESS, GET_ALL_TWEETS_FAIL
 
 export const getAllTweets=()=>async (dispatch)=>{
     try {
-        const {data} = await api.get("/api/tweets");
+        const {data} = await api.get("/api/tweets/all");
         console.log("get all tweets:", data)
         dispatch({type: GET_ALL_TWEETS_SUCCESS, payload:data})
     } catch (error) {
@@ -76,7 +76,7 @@ export const createTweetReply=(tweetData)=>async (dispatch)=>{
 
 export const createRetweet=(tweetId)=>async (dispatch)=>{
     try {
-        const {data} = await api.post(`/api/tweets/${tweetId}/retweet`);
+        const {data} = await api.put(`/api/tweets/${tweetId}/retweet`);
         console.log("Retweet:", data)
         dispatch({type: RETWEET_SUCCESS, payload:data})
     } catch (error) {
@@ -102,7 +102,7 @@ export const deleteTweet=(tweetId)=>async (dispatch)=>{
     try {
         const {data} = await api.post(`/api/tweets/${tweetId}/delete`);
         console.log("Delete Tweet:", data)
-        dispatch({type: TWEET_DELETE_SUCCESS, payload:data})
+        dispatch({type: TWEET_DELETE_SUCCESS, payload:tweetId})
     } catch (error) {
         console.log("error", error)
         dispatch({type: TWEET_DELETE_FAILURE, payload:error.message})
