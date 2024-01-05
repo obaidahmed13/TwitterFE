@@ -1,9 +1,6 @@
-
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-
 import Authentication from './components/Authentication/Authentication';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from './Store/Auth/Action';
@@ -28,7 +25,6 @@ function App() {
       <Routes>
         <Route path='/*' element={auth.user?<Home/>: <Authentication/>}/>
       </Routes>
-      
     </div>
   );
 }

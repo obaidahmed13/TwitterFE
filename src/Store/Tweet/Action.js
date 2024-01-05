@@ -1,5 +1,5 @@
 import { api } from "../../config/api"
-import { FIND_TWEET_BY_ID_FAILURE, FIND_TWEET_BY_ID_SUCCESS, GET_ALL_TWEETS_FAILURE, GET_ALL_TWEETS_SUCCESS, GET_USERS_TWEET_FAILURE, GET_USERS_TWEET_SUCCESS, LIKE_TWEET_FAILURE, LIKE_TWEET_SUCCESS, REPLY_TWEET_FAILURE, REPLY_TWEET_SUCCESS, RETWEET_FAILURE, RETWEET_SUCCESS, TWEET_CREATE_FAILURE, TWEET_CREATE_SUCCESS, TWEET_DELETE_FAILURE, TWEET_DELETE_SUCCESS, USER_LIKE_TWEET_FAILURE, USER_LIKE_TWEET_SUCCESS } from "./ActionType";
+import { FIND_TWEET_BY_ID_FAILURE, FIND_TWEET_BY_ID_SUCCESS, GET_ALL_TWEETS_FAILURE, GET_ALL_TWEETS_SUCCESS, GET_LIKED_TWEETS_FAILURE, GET_LIKED_TWEETS_SUCCESS, GET_USERS_TWEET_FAILURE, GET_USERS_TWEET_SUCCESS, LIKE_TWEET_FAILURE, LIKE_TWEET_SUCCESS, REPLY_TWEET_FAILURE, REPLY_TWEET_SUCCESS, RETWEET_FAILURE, RETWEET_SUCCESS, TWEET_CREATE_FAILURE, TWEET_CREATE_SUCCESS, TWEET_DELETE_FAILURE, TWEET_DELETE_SUCCESS, USER_LIKE_TWEET_FAILURE, USER_LIKE_TWEET_SUCCESS } from "./ActionType";
 
 export const getAllTweets=()=>async (dispatch)=>{
     try {
@@ -100,7 +100,7 @@ export const likeTweet=(tweetId)=>async (dispatch)=>{
 
 export const deleteTweet=(tweetId)=>async (dispatch)=>{
     try {
-        const {data} = await api.post(`/api/tweets/${tweetId}/delete`);
+        const {data} = await api.delete(`/api/tweets/${tweetId}/delete`);
         console.log("Delete Tweet:", data)
         dispatch({type: TWEET_DELETE_SUCCESS, payload:tweetId})
     } catch (error) {
@@ -109,3 +109,4 @@ export const deleteTweet=(tweetId)=>async (dispatch)=>{
         
     }
 }
+

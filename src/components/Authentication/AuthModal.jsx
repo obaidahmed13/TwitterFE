@@ -30,18 +30,15 @@ export default function AuthModal({open, handleClose}) {
   }
   return (
     <div>
-      
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box sx={style}>
           <h1 className='text-center font-bold text-3xl pb-10'>
           {location.pathname==="/signup"?"Create an Account":"Signin to X"}
           </h1>
-
           {location.pathname==="/signup"?<SignupForm/>:<SigninForm/>}
           <h1 className='text-center py-5 font-semibold text-lg text-gray-500'>
           {location.pathname==="/signup"?"Already have an Account":"If you don't have an account"}

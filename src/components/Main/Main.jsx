@@ -59,7 +59,7 @@ export default function Main() {
         <section>
             <h1 className='py-5 text-xl font-bold opacity-90'>Home</h1>
         </section>
-        <section className={`pb-10`}>
+        <section className={`pb-6`}>
             <div className='flex space-x-5'>
                 <Avatar 
                 alt='username' 

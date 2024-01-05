@@ -33,14 +33,6 @@ export const authReducer = (state = initialState, action) => {
 
     case GET_USER_PROFILE_SUCCESS:
       return { ...state, loading: false, error: null, user: action.payload };
-    // case UPDATE_USER_SUCCESS:
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     error: null,
-    //     user: action.payload,
-    //     updateUser: true,
-    //   };
     case LOGOUT:
       return initialState;
 
@@ -63,7 +55,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        finduser: action.payload,
+        findUser: action.payload,
       };
 
     default:

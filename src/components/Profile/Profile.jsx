@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useNavigate, useParams } from "react-router-dom";
-import { Avatar, Box, Button, Tab, Tabs } from "@mui/material";
+import { Avatar, Box, Button, Tab } from "@mui/material";
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter'
 import LocationIcon from '@mui/icons-material/LocationOn';
 import CalendarIcon from '@mui/icons-material/CalendarMonth'
@@ -12,13 +12,13 @@ import TweetCard from "../Main/TweetCard";
 import ProfileModal from "./ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
 import { findUserById, followUser } from "../../Store/Auth/Action";
-import { getUsersTweet } from "../../Store/Tweet/Action";
+import {  findTweetsByUserLikes, getUsersTweet } from "../../Store/Tweet/Action";
 
 
 export default function Profile() {
   const [tabValue, setTabValue] = useState("1")
   const navigate = useNavigate();
-  const {auth, tweet} = useSelector(store=>store)
+  const {auth, tweet, likedTweets } = useSelector((store)=>store)
   const handleBack = () => navigate(-1);
   const dispatch = useDispatch()
   const {id} = useParams()
@@ -45,7 +45,10 @@ export default function Profile() {
   useEffect(()=> {
     dispatch(findUserById(id)) 
     dispatch(getUsersTweet(id))
+    dispatch(findTweetsByUserLikes(id))
   }, [id])
+  console.log(tweet)
+  console.log(likedTweets)
 
 
   return (
@@ -57,7 +60,7 @@ export default function Profile() {
 
       <section>
         <img
-          className="w-[100%] h-[15rem] object-cover"
+          className="w-[100%] h-[12rem] object-cover"
           src={auth.findUser?.backgroundImage
           }
           alt="bgimage"
@@ -87,7 +90,7 @@ export default function Profile() {
               variant="contained"
               sx={{ borderRadius: "20px" }}
             >
-              {auth.findUser?.followed? "Follow":"Unfollow"}
+              {auth.findUser?.followed? "Unfollow":"follow"}
             </Button>
           )}
         </div>
@@ -140,11 +143,11 @@ export default function Profile() {
             <Tab label="Likes" value="4" />
           </TabList>
         </Box>
-        <TabPanel value="1" className="my-2" >Tweets
-        {tweet.tweets.map((item)=><TweetCard item={item} />)}</TabPanel>
-        <TabPanel value="2">Replies {tweet.tweet?.replyTweets?.map((item)=><TweetCard item={item} />)}</TabPanel>
-        <TabPanel value="3">Media</TabPanel>
-        <TabPanel value="4">Likes</TabPanel>
+        <TabPanel value="1" >Tweets
+        {tweet.tweets?.map((item)=><TweetCard item={item} />)}</TabPanel>
+        <TabPanel value="2">Retweets {tweet.tweets?.map((item)=> {if(item.retweet) {return <TweetCard key={item.id} item={item} />} return null })}</TabPanel>
+        <TabPanel value="3">Media {tweet.tweets?.map((item)=> {if(auth.findUser ) {return  <img className="w-[28rem] border border-gray-400 p-2 my-4 " src={item.image} alt="media" /> } return null })} </TabPanel>
+        <TabPanel value="4">Likes {tweet.likedTweets?.map((item)=>  <TweetCard key={item.id} item={item} />)} </TabPanel>
       </TabContext>
     </Box>
       </section>

@@ -11,8 +11,8 @@ import ChartIcon from "@mui/icons-material/BarChart";
 import FavFilledIcon from "@mui/icons-material/Favorite";
 import ReplyModal from "./ReplyModal";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createRetweet, likeTweet } from "../../Store/Tweet/Action";
+import { useDispatch } from "react-redux";
+import { createRetweet, deleteTweet, likeTweet } from "../../Store/Tweet/Action";
 
 export default function TweetCard({item}) {
   const [openReplyModal, setOpenReplyModal] = useState(false);
@@ -20,9 +20,21 @@ export default function TweetCard({item}) {
   const handleCloseReplyModal = () => setOpenReplyModal(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {auth} = useSelector((store)=> store)
+
+  
+  
+let counter = 0;
+function randomViews() {
+  const randomNumber = Math.floor(Math.random() * 1000);
+  counter += randomNumber;
+  return counter;
+}
+  const views = randomViews()
+
+
 
   const handleDeleteTweet = () => {
+    dispatch(deleteTweet(item?.id))
     console.log("delete tweet");
   };
 
@@ -40,16 +52,12 @@ export default function TweetCard({item}) {
 
   return (
     <div>
-      {/* <div className="flex items-center font-semibold text-gray-700 py-2">
-        <RepeatIcon />
-        <p>Retweets</p>
-      </div> */}
       <div className="flex space-x-5">
         <Avatar
           onClick={() => navigate(`/profile/${item?.user.id}`)}
           alt="username"
           className="cursor-pointer"
-          src={auth.user.image}
+          src={item.user?.image}
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
@@ -125,7 +133,7 @@ export default function TweetCard({item}) {
                   className="cursor-pointer"
                   onClick={handleOpenReplyModal}
                 />
-                <p>430</p>
+                <p>{views}</p>
               </div>
 
               <div className="space-x-3 flex items-center text-gray-600">

@@ -4,10 +4,12 @@ import Brightness4Icon from '@mui/icons-material/Brightness4'
 import { Button } from '@mui/material'
 import MoreIcon from '@mui/icons-material/MoreHoriz'
 
+
 export default function RightBar() {
     const handleChangeTheme=() => {
         console.log("Handle change theme")
     }
+    
   return (
     <div className='py-5 sticky top'>
         <div className='relative flex items-center'>
