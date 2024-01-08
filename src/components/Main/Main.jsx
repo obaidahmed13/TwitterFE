@@ -47,18 +47,11 @@ export default function Main() {
         setSelectImage(imgURL)
         setImageUpload(false);
     }
+    
+    useEffect(()=>{
+        dispatch(getAllTweets())
+    }, [dispatch, tweet.like, tweet.retweet])
 
-
-     useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await dispatch(getAllTweets());
-      } catch (error) {
-        console.error('Error fetching tweets:', error);
-      }
-    };
-    fetchData();
-  }, [dispatch, tweet.like, tweet.retweet]);
   return (
     <div className='space-y-5'>
         <section>

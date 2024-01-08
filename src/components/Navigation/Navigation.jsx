@@ -25,8 +25,7 @@ export default function Navigation(){
             <div className="space-y-5">
                 {NavigationMenu.map((item)=> 
                 <div key={item.title} className='flex space-x-3 items-center cursor-pointer'
-                onClick={()=> item.title==="Profile"?navigate(`/profile/${auth.user.id}`):navigate(item.path)}
-                >
+                onClick={()=> item.title==="Profile"?navigate(`/profile/${auth.user.id}`):navigate(item.path)}>
                     {item.icon}
                 <p className='text-xl'>{item.title}</p>
                 </div>

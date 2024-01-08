@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  useEffect(()=>{
+  useEffect( ()=>{
     if(jwt) {
       dispatch(getUserProfile(jwt))
       navigate("/")
@@ -21,11 +21,11 @@ function App() {
   },[auth.jwt])
 
   return (
-    <div className="">
+ 
       <Routes>
-        <Route path='/*' element={auth.user ?<Home/>: <Authentication/>}/>
+        <Route path='/*' element={auth.user?<Home/>: <Authentication/>}/>
       </Routes>
-    </div>
+    
   );
 }
 

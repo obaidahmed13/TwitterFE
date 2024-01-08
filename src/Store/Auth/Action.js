@@ -2,8 +2,6 @@ import { API_BASE_URL, api } from "../../config/api"
 import axios from 'axios'
 import { FIND_USER_BY_ID_FAILURE, FIND_USER_BY_ID_SUCCESS, FOLLOW_USER_FAILURE, FOLLOW_USER_SUCCESS, GET_USER_PROFILE_FAILURE, GET_USER_PROFILE_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT, REGISTER_USER_FAILURE, REGISTER_USER_SUCCESS, SEARCH_USER_FAILURE, SEARCH_USER_SUCCESS, UPDATE_USER_FAILURE, UPDATE_USER_SUCCESS } from "./ActionType"
 
-import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
-import { app } from '../../firebase'
 import { GOOGLE_LOGIN_FAILURE, GOOGLE_LOGIN_SUCCESS } from '../../Store/Auth/ActionType'
 
 
@@ -16,7 +14,7 @@ export const loginUser = (loginData)=> async(dispatch)=> {
             localStorage.setItem("jwt", data.jwt)
             dispatch({type:LOGIN_USER_SUCCESS, payload:data.jwt})
         }else {
-            // Handle the case where the token is not present in the response
+            
             dispatch({ type: LOGIN_USER_FAILURE, payload: 'Token not received' });
           }
         
