@@ -1,14 +1,18 @@
 import { Button, Grid } from "@mui/material";
 import React, { useState } from "react";
-import { GoogleLogin } from '@react-oauth/google';
 import AuthModal from "./AuthModal";
 import { blue } from "@mui/material/colors";
+import OAuth from "./OAuth";
+
+
 
 
 export default function Authentication() {
   const[openAuthModal, setOpenAuthModal] = useState(false);
   const handleOpenAuthModal=()=> setOpenAuthModal(true);
   const handleCloseAuthModal=()=> setOpenAuthModal(false)
+  
+  
 
   return (
     <div>
@@ -29,8 +33,9 @@ export default function Authentication() {
           <h1 className='font-bold text-3xl pt-16 pb-10' >Join Today</h1>
           <div className='w-[60%]'>
             <div className='w-full'>
-              <GoogleLogin  width={330} 
-              />
+             
+             <OAuth />
+             
               <p className='py-5 text-center'>OR</p>
               <Button onClick={handleOpenAuthModal} fullWidth variant="contained" size="large" sx={
                 {

@@ -15,7 +15,7 @@ export default function Home() {
         <Grid item xs={0} lg={2.5} className='hidden lg:block w-full relative'>
             <Navigation/>
         </Grid>
-        <Grid item xs={12} lg={6.5}  className='px-3 lg:px-3 hidden lg:block w-full relative'>
+        <Grid item xs={12} lg={6}  className='px-3 lg:px-3 hidden lg:block w-full relative'>
           <Routes>
             <Route path="/" element={<Main/>}></Route>
             <Route path="/home" element={<Main/>}></Route>

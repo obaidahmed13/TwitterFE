@@ -22,7 +22,16 @@ export default function Profile() {
   const handleBack = () => navigate(-1);
   const dispatch = useDispatch()
   const {id} = useParams()
+  console.log('id',id)
 
+  useEffect(()=> {
+    dispatch(getUsersTweet(id))
+    dispatch(findUserById(id)) 
+    dispatch(findTweetsByUserLikes(id))
+  }, [dispatch, id])
+console.log(auth.user)
+ 
+  
   const handleFollowUser = () => {
     dispatch(followUser(id))
     console.log("follow User");
@@ -30,7 +39,7 @@ export default function Profile() {
 
   const [openProfileModal, setOpenProfileModal] = useState(false);
   const handleOpenProfile = () => setOpenProfileModal(true);
-  const handleClose = () => setOpenProfileModal(false);
+  const handleClose = () => {setOpenProfileModal(false)};
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue)
@@ -42,11 +51,7 @@ export default function Profile() {
       console.log("users tweets")
     }
   }
-  useEffect(()=> {
-    dispatch(findUserById(id)) 
-    dispatch(getUsersTweet(id))
-    dispatch(findTweetsByUserLikes(id))
-  }, [id])
+  
   console.log(tweet)
   console.log(likedTweets)
 
@@ -138,15 +143,15 @@ export default function Profile() {
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <TabList onChange={handleTabChange} aria-label="lab API tabs example">
             <Tab label="Tweets" value="1" />
-            <Tab label="Replies" value="2" />
+            <Tab label="Retweets" value="2" />
             <Tab label="Media" value="3" />
             <Tab label="Likes" value="4" />
           </TabList>
         </Box>
         <TabPanel value="1" >Tweets
-        {tweet.tweets?.map((item)=><TweetCard item={item} />)}</TabPanel>
+        {tweet.tweets?.map((item)=>  <TweetCard item={item} />)}</TabPanel>
         <TabPanel value="2">Retweets {tweet.tweets?.map((item)=> {if(item.retweet) {return <TweetCard key={item.id} item={item} />} return null })}</TabPanel>
-        <TabPanel value="3">Media {tweet.tweets?.map((item)=> {if(auth.findUser ) {return  <img className="w-[28rem] border border-gray-400 p-2 my-4 " src={item.image} alt="media" /> } return null })} </TabPanel>
+        <TabPanel value="3">Media {tweet.tweets?.map((item)=> {if(auth.findUser?.req_user ) {return  <img className="w-[28rem] border border-gray-400 p-2 my-4 " src={item.image} alt="media" /> } return null })} </TabPanel>
         <TabPanel value="4">Likes {tweet.likedTweets?.map((item)=>  <TweetCard key={item.id} item={item} />)} </TabPanel>
       </TabContext>
     </Box>
@@ -157,3 +162,4 @@ export default function Profile() {
     </div>
   );
 }
+

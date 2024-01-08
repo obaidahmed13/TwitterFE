@@ -9,7 +9,7 @@ import Home from './components/Home/Home';
 
 function App() {
   const jwt = localStorage.getItem("jwt")
-  const {auth}=useSelector(store=>store)
+  const {auth}=useSelector((store)=>store)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 

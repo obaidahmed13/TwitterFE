@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { Avatar, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import RemoveIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import ChatIcon from "@mui/icons-material/ChatBubbleOutline";
@@ -11,17 +11,18 @@ import ChartIcon from "@mui/icons-material/BarChart";
 import FavFilledIcon from "@mui/icons-material/Favorite";
 import ReplyModal from "./ReplyModal";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createRetweet, deleteTweet, likeTweet } from "../../Store/Tweet/Action";
 
-export default function TweetCard({item}) {
+export default function TweetCard({item, userId}) {
   const [openReplyModal, setOpenReplyModal] = useState(false);
   const handleOpenReplyModal = () => setOpenReplyModal(true);
   const handleCloseReplyModal = () => setOpenReplyModal(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  
+  const {auth} = useSelector(store=>store)
+  console.log("auth user",auth)
+  console.log( "items ", item)
   
 let counter = 0;
 function randomViews() {
@@ -29,8 +30,7 @@ function randomViews() {
   counter += randomNumber;
   return counter;
 }
-  const views = randomViews()
-
+const views = randomViews()
 
 
   const handleDeleteTweet = () => {
@@ -49,7 +49,6 @@ function randomViews() {
     console.log("Handle Like Retweet");
   };
   
-
   return (
     <div>
       <div className="flex space-x-5">
@@ -66,18 +65,12 @@ function randomViews() {
               <span className="text-gray-600">{item?.user?.fullName.split(" ").join("_").toLowerCase()}</span>
             </div>
             <div>
-              <Button
+              {auth.user?.id === item.user.id ? <Button
                 onClick={handleDeleteTweet}
                 className="cursor-pointer font-small"
               >
                 <RemoveIcon />
-              </Button>
-              <Button
-                onClick={handleDeleteTweet}
-                className="cursor-pointer font-small"
-              >
-                <EditIcon />
-              </Button>
+              </Button> : null}
             </div>
           </div>
           <div className="mt-2">

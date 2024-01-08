@@ -21,7 +21,7 @@ export default function Main() {
     const validationSchema = Yup.object().shape({
         content:Yup.string().required("Text is required"),
     })
-    const handleSubmit=async(values, actions)=> {
+    const handleSubmit= async(values, actions)=> {
         try {
             await dispatch(createTweet(values));
             actions.resetForm();

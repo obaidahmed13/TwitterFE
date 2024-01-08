@@ -33,7 +33,6 @@ export default function ProfileModal({open, handleClose}) {
   const handleSubmit=(values)=> {
     dispatch(updateUserProfile(values))
     console.log("handle submit", values)
-    auth.user.req_user = true
     handleClose()
     setSelectedImage("")
   }
@@ -61,6 +60,17 @@ export default function ProfileModal({open, handleClose}) {
     },
     onSubmit: handleSubmit
   })
+
+  React.useEffect(() => {
+    formik.setValues({
+      fullName: auth.findUser?.fullName || '',
+      website: auth.findUser?.website || '',
+      location: auth.findUser?.location || '',
+      bio: auth.findUser?.bio || '',
+      backgroundImage: auth.findUser?.backgroundImage || '',
+      image: auth.findUser?.image || '',
+    });
+  }, [auth.findUser]);
   return (
     <div>
       
@@ -120,6 +130,7 @@ export default function ProfileModal({open, handleClose}) {
                         id='fullName'
                         name='fullName'
                         label='Full Name'
+                        
                         value={formik.values.fullName}
                         onChange={formik.handleChange}
                         error={formik.touched.fullName && Boolean(formik.errors.fullName)}
