@@ -29,9 +29,7 @@ export default function Profile() {
     dispatch(findUserById(id)) 
     dispatch(findTweetsByUserLikes(id))
   }, [dispatch, id])
-console.log(auth.user)
  
-  
   const handleFollowUser = () => {
     dispatch(followUser(id))
     console.log("follow User");

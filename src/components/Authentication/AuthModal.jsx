@@ -5,6 +5,7 @@ import SigninForm from './SigninForm';
 import SignupForm from './SignupForm';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { useEffect } from 'react';
 
 const style = {
   position: 'absolute',
@@ -24,10 +25,10 @@ export default function AuthModal({open, handleClose}) {
   const navigate = useNavigate()
   const location = useLocation();
   const handleNavigate = () => {
-    const path = location.pathname==="/signup"?"/signin":"/signup"
-    navigate(path)
+    const newPath = location.pathname === "/signup" ? "/signin" : "/signup";
+    navigate(newPath);
+  };
 
-  }
   return (
     <div>
       <Modal

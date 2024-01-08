@@ -17,7 +17,6 @@ export default function Main() {
     const [selectImage, setSelectImage] = useState(false);
     const dispatch = useDispatch();
     const{tweet, auth}= useSelector(store=>store)
-    console.log("tweet", tweet)
     const validationSchema = Yup.object().shape({
         content:Yup.string().required("Text is required"),
     })
@@ -50,10 +49,16 @@ export default function Main() {
     }
 
 
-    useEffect(()=>{
-        dispatch(getAllTweets())
-    }, [tweet.like, tweet.retweet])
-
+     useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await dispatch(getAllTweets());
+      } catch (error) {
+        console.error('Error fetching tweets:', error);
+      }
+    };
+    fetchData();
+  }, [dispatch, tweet.like, tweet.retweet]);
   return (
     <div className='space-y-5'>
         <section>

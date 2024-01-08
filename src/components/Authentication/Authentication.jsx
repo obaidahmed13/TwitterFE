@@ -1,18 +1,34 @@
 import { Button, Grid } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthModal from "./AuthModal";
 import { blue } from "@mui/material/colors";
 import OAuth from "./OAuth";
+import { useNavigate } from "react-router-dom";
+
 
 
 
 
 export default function Authentication() {
-  const[openAuthModal, setOpenAuthModal] = useState(false);
-  const handleOpenAuthModal=()=> setOpenAuthModal(true);
-  const handleCloseAuthModal=()=> setOpenAuthModal(false)
-  
-  
+  const [openAuthModal, setOpenAuthModal] = useState(false);
+  const [currentPath, setCurrentPath] = useState('/');  // Set the default path
+  const navigate = useNavigate()
+
+  const handleOpenAuthModal = (path) => {
+    setCurrentPath(path);
+    setOpenAuthModal(true);
+  };
+
+  const handleCloseAuthModal = () => setOpenAuthModal(false);
+
+  useEffect(() => {
+    if (openAuthModal) {
+      // Navigate to the desired path when the modal is closed
+      // You can access the currentPath state here
+      navigate(currentPath);  
+    }
+  }, [openAuthModal, currentPath]);
+
 
   return (
     <div>
@@ -37,7 +53,7 @@ export default function Authentication() {
              <OAuth />
              
               <p className='py-5 text-center'>OR</p>
-              <Button onClick={handleOpenAuthModal} fullWidth variant="contained" size="large" sx={
+              <Button onClick={() => handleOpenAuthModal('/signup')} fullWidth variant="contained" size="large" sx={
                 {
                 borderRadius: "29px",
                 py:"7px",
@@ -48,7 +64,7 @@ export default function Authentication() {
             </div> 
             <div>
               <h1 className='font-bold text-xl mb-5 mt-8'>Already have an account?</h1>
-            <Button onClick={handleOpenAuthModal} fullWidth variant="outlined" size="large" sx={
+            <Button onClick={() => handleOpenAuthModal('/signin')} fullWidth variant="outlined" size="large" sx={
                 {
                 borderRadius: "29px",
                 py:"7px",

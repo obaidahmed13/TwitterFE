@@ -23,7 +23,7 @@ function App() {
   return (
     <div className="">
       <Routes>
-        <Route path='/*' element={auth.user?<Home/>: <Authentication/>}/>
+        <Route path='/*' element={auth.user ?<Home/>: <Authentication/>}/>
       </Routes>
     </div>
   );

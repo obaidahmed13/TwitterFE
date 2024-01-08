@@ -20,9 +20,6 @@ export default function RightBar() {
     const handleSearch = (query) => {
         dispatch(searchUser(query))
     }
-
-    console.log("searched user", auth.searchedUser)
-    
     
   return (
     <div className='py-5 sticky top'>

@@ -30,7 +30,7 @@ function randomViews() {
   counter += randomNumber;
   return counter;
 }
-const views = randomViews()
+  const views = randomViews()
 
 
   const handleDeleteTweet = () => {

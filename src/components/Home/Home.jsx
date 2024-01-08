@@ -6,6 +6,7 @@ import Main from '../Main/Main'
 import { Route, Routes } from 'react-router-dom'
 import Profile from '../Profile/Profile'
 import TweetDetails from '../TweetDetails/TweetDetails'
+import ComingSoon from '../ComingSoon/ComingSoon'
 
 
 
@@ -21,12 +22,17 @@ export default function Home() {
             <Route path="/home" element={<Main/>}></Route>
             <Route path='/profile/:id' element={<Profile/>}></Route>
             <Route path='/tweet/:id' element={<TweetDetails/>}></Route>
+            <Route path='/explore' element={<ComingSoon item="EXPLORE"/>}></Route>
+            <Route path='/notification' element={<ComingSoon item="NOTIFICATION"/>}></Route>
+            <Route path='/messages' element={<ComingSoon item="MESSAGES"/>}></Route>
+            <Route path='/lists' element={<ComingSoon item="LISTS"/>}></Route>
+            <Route path='/communities' element={<ComingSoon item="COMMUNITIES"/>}></Route>
+            <Route path='/more' element={<ComingSoon item="MORE"/>}></Route>
           </Routes>
         </Grid>
         <Grid item xs={0} lg={3} className='hidden lg:block w-full relative'>
           <RightBar/>
         </Grid>
-        
     </Grid>
   )
 }
