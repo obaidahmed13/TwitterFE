@@ -1,5 +1,7 @@
 import {
   FIND_USER_BY_ID_SUCCESS,
+  FOLLOW_USER_FAILURE,
+  FOLLOW_USER_REQUEST,
   FOLLOW_USER_SUCCESS,
   GET_USER_PROFILE_FAILURE,
   GET_USER_PROFILE_REQUEST,
@@ -33,6 +35,7 @@ export const authReducer = (state = initialState, action) => {
     case GET_USER_PROFILE_REQUEST:
     case SEARCH_USER_REQUEST:
     case GOOGLE_LOGIN_REQUEST:
+    case FOLLOW_USER_REQUEST:
       return { ...state, loading: true, error: null };
 
     case LOGIN_USER_SUCCESS:
@@ -51,6 +54,7 @@ export const authReducer = (state = initialState, action) => {
     case GET_USER_PROFILE_FAILURE:
     case SEARCH_USER_FAILURE:
     case GOOGLE_LOGIN_FAILURE:
+    case FOLLOW_USER_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
     case FIND_USER_BY_ID_SUCCESS:

@@ -62,7 +62,8 @@ function randomViews() {
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
               <span className="font-semibold">{item?.user?.fullName}</span>
-              <span className="text-gray-600">{item?.user?.fullName.split(" ").join("_").toLowerCase()}</span>
+              <img className="w-5 h-5 ml-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="verified" />
+              <span className="text-gray-600">@{item?.user?.fullName.split(" ").join("_").toLowerCase()}</span>
             </div>
             <div>
               {auth.user?.id === item.user.id ? <Button

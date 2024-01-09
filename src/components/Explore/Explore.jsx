@@ -14,9 +14,7 @@ export default function Explore() {
     
         try {
           const apiKey = '8c73e03c08e943579861c4b11e5c1584';
-          const url = `https://newsapi.org/v2/everything?q=${searchWord}&apiKey=${apiKey}`;
-    
-          const res = await fetch(url);
+          const res = await fetch(`https://newsapi.org/v2/everything?q=${searchWord}&apiKey=${apiKey}`);
           const data = await res.json();
           setArticles(data.articles);
         } catch (error) {
@@ -27,9 +25,7 @@ export default function Explore() {
         const fetchDefaultArticles = async () => {
           try {
             const apiKey = '8c73e03c08e943579861c4b11e5c1584';
-            const url = `https://newsapi.org/v2/everything?q=viral&apiKey=${apiKey}`;
-    
-            const res = await fetch(url);
+            const res = await fetch(`https://newsapi.org/v2/everything?q=viral&apiKey=${apiKey}`);
             const data = await res.json();
             setArticles(data.articles);
           } catch (error) {

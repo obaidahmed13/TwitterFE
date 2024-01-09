@@ -30,6 +30,7 @@ export default function Profile() {
     dispatch(findTweetsByUserLikes(id))
   }, [dispatch, id])
  
+  
   const handleFollowUser = () => {
     dispatch(followUser(id))
     console.log("follow User");
@@ -49,9 +50,6 @@ export default function Profile() {
       console.log("users tweets")
     }
   }
-  
-  console.log(tweet)
-  console.log(likedTweets)
 
 
   return (
@@ -59,6 +57,7 @@ export default function Profile() {
       <section className="bg-white z-50 flex items-center sticky top-0 bg-opacity-90">
         <BackspaceIcon className="cursor-pointer" onClick={handleBack} />
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">{auth.findUser?.fullName}</h1>
+        <img className="w-4 h-4 ml-1 mt-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="verified" />
       </section>
 
       <section>
@@ -102,6 +101,7 @@ export default function Profile() {
           <div>
             <div className="flex items-center">
               <h1 className="font-bold text-lg">{auth.findUser?.fullName}</h1>
+              <img className="w-5 h-5 ml-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="verified" />
             </div>
             <h1 className="text-gray-600">@{auth.findUser?.fullName.split(" ").join("_").toLowerCase()}
             </h1>

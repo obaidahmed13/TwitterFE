@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import Brightness4Icon from '@mui/icons-material/Brightness4'
 import { Button } from '@mui/material'
 import MoreIcon from '@mui/icons-material/MoreHoriz'
 import { useDispatch, useSelector } from 'react-redux'
@@ -9,9 +8,7 @@ import { Link } from 'react-router-dom'
 
 
 export default function RightBar() {
-    const handleChangeTheme=() => {
-        console.log("Handle change theme")
-    }
+
     const { auth } = useSelector((store) => store);
 
 
@@ -26,7 +23,7 @@ export default function RightBar() {
         <div className='relative flex items-center'>
             <input 
             onChange= {(e)=> handleSearch(e.target.value)}
-            type="text" className='py-3 rounded-full text-gray-500 w-full pl-12 border-2' />
+            type="text" placeholder="Search Twitter..." className='py-3 rounded-full text-gray-500 w-full pl-12 border-2' />
             <div className='absolute top-0 left-0 pt-2 pl-2 '>
                <Button><SearchIcon className='text-gray-500' 
                 onClick={handleSearch}
@@ -34,22 +31,27 @@ export default function RightBar() {
                 </SearchIcon></Button> 
 
             </div>
-            <Brightness4Icon className='ml-3 cursor-pointer' onClick={handleChangeTheme} />
+            
         </div>
            {auth.searchedUser? <div className=' mt-1'>
             <ul >
             {auth.searchedUser?.map((user) => (
-            <li key={user.id}><Link className='border-2 p-2 flex justify-between hover:shadow-lg text-sm' to={`/profile/${user.id}`}>
-            {user.fullName} | {user.email}
-          </Link> </li>
+            <li key={user.id}>
+               <div className='border-2 p-2 flex justify-between hover:shadow-lg text-sm '>
+                <Link className='' to={`/profile/${user.id}`}>
+                {user.fullName} | {user.email}
+                </Link>
+                <img className="w-4 h-4 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="verified" /> 
+          </div>
+          </li>
             ))}
             </ul>
             </div> : null }
         <section className='my-5 '>
-            <h1 className='text-xl font-bold'>Get Verified!</h1>
-            <h1 className='font-bold my-2'>Get verified to unlock new features! </h1>
-            <Button variant='contained' sx={{padding: "10px", paddingX: "20px", borderRadius: "25px"}}>
-                Get Verified
+            <h1 className='text-xl font-bold'>You are Verified!</h1>
+            <h1 className='font-bold my-2'>You unlocked your blue checkmark. </h1>
+            <Button variant='contained' disabled sx={{padding: "10px", paddingX: "20px", borderRadius: "25px"}}>
+                Verified
             </Button>
         </section>
         <section className='mt-7 space-y-5'>
