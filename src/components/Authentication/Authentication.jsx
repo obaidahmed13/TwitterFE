@@ -51,8 +51,9 @@ export default function Authentication() {
             <div className='w-full'>
              
              <OAuth />
-             
-              <p className='py-5 text-center'>OR</p>
+             <div className="flex ">
+              <p className='py-5 text-center '><span className="opacity-10">----------------- </span> OR <span className="opacity-10"> -----------------</span></p>
+            </div>
               <Button onClick={() => handleOpenAuthModal('/signup')} fullWidth variant="contained" size="large" sx={
                 {
                 borderRadius: "29px",

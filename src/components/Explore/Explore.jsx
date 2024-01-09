@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, resolvePath } from 'react-router-dom';
+
 
 export default function Explore() {
     const [articles, setArticles] = useState([]);
@@ -11,7 +11,6 @@ export default function Explore() {
     
       const handleSubmit = async (e) => {
         e.preventDefault();
-        
     
         try {
           const apiKey = '8c73e03c08e943579861c4b11e5c1584';
@@ -58,7 +57,7 @@ export default function Explore() {
         </button>
       </form>
       <ul>
-        {articles.map((article, index) => (
+        {articles?.map((article, index) => (
           <li className='p-5 border border-black flex flex-col my-4 shadow-md hover:bg-slate-100' key={index}>
             <h2><a className='font-bold hover:underline' href={article.url}>{article.title}</a></h2>
             <p className='text-gray-500'>Author: {article.author}</p>

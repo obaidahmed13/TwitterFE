@@ -8,6 +8,7 @@ import Profile from '../Profile/Profile'
 import TweetDetails from '../TweetDetails/TweetDetails'
 import ComingSoon from '../ComingSoon/ComingSoon'
 import Explore from '../Explore/Explore'
+import Notification from '../Notification/Notification'
 
 
 
@@ -24,7 +25,7 @@ export default function Home() {
             <Route path='/profile/:id' element={<Profile/>}></Route>
             <Route path='/tweet/:id' element={<TweetDetails/>}></Route>
             <Route path='/explore' element={<Explore item="EXPLORE"/>}></Route>
-            <Route path='/notification' element={<ComingSoon item="NOTIFICATION"/>}></Route>
+            <Route path='/notification' element={<Notification item="NOTIFICATION"/>}></Route>
             <Route path='/messages' element={<ComingSoon item="MESSAGES"/>}></Route>
             <Route path='/lists' element={<ComingSoon item="LISTS"/>}></Route>
             <Route path='/communities' element={<ComingSoon item="COMMUNITIES"/>}></Route>

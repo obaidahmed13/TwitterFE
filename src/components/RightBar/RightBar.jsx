@@ -63,7 +63,7 @@ export default function RightBar() {
                 <div>
                     <p>Entertainment - Trending</p>
                     <p className='font-bold'>#SuperBowl</p>
-                    <p>42.2k Tweets</p>
+                    <p>123.2k Tweets</p>
                 </div>
                 
                 
@@ -73,7 +73,7 @@ export default function RightBar() {
                 <div>
                     <p>Entertainment - Trending</p>
                     <p className='font-bold'>#JJK</p>
-                    <p>42.2k Tweets</p>
+                    <p>45.2k Tweets</p>
                 </div>
                 
                 
@@ -83,7 +83,7 @@ export default function RightBar() {
                 <div>
                     <p>Entertainment - Trending</p>
                     <p className='font-bold'>#Valorant</p>
-                    <p>42.2k Tweets</p>
+                    <p>43.2k Tweets</p>
                 </div>
                 
                 

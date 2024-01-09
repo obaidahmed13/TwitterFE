@@ -4,6 +4,7 @@ import React from 'react'
 import { app } from '../../firebase'
 import { useDispatch } from 'react-redux'
 import { googlelogin } from '../../Store/Auth/Action'
+import { GoogleLogin } from '@react-oauth/google'
 
 export default function OAuth() {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ export default function OAuth() {
    
   return (
     <div>
-        <button type='button' onClick={handleGoogleClick} >Sign in with Google</button>
+        <button type='button' className='rounded-full border-2 p-2 border-red-100 w-full hover:bg-slate-50 ' onClick={handleGoogleClick} >Sign in with Google</button>
     </div>
   )
 }
