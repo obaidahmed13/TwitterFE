@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -42,7 +43,7 @@ public class LikeController {
 		
 	}
 	
-	@PostMapping("/tweet/{tweetId}")
+	@GetMapping("/tweet/{tweetId}")
 	public ResponseEntity<List<LikeDto>> getAllLikes(@PathVariable long tweetId, 
 			@RequestHeader("Authorization") String jwt) throws UserException{
 		

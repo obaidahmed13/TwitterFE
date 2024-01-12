@@ -34,6 +34,11 @@ public class UserDto {
 	private List<UserDto>following = new ArrayList<>();
 	
 	private boolean followed;
+	
+	
+
+	public UserDto() {
+	}
 
 	public Long getId() {
 		return id;

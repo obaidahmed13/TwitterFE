@@ -1,6 +1,7 @@
 package com.obaidahmed.twitter.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class TweetDto {
@@ -133,6 +134,11 @@ public class TweetDto {
 
 	public void setTotalReplies(int totalReplies) {
 		this.totalReplies = totalReplies;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

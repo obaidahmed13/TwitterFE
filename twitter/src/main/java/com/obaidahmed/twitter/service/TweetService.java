@@ -27,8 +27,8 @@ public class TweetService {
 		tweet.setTweet(true);
 		tweet.setVideo(req.getVideo());
 		
-		
 		return tweetRepository.save(tweet);
+		
 	}
 	
 	public List<Tweet> findAllTweets() {
@@ -71,18 +71,18 @@ public class TweetService {
 		tweet.setReplyFor(replyFor);
 		
 		Tweet savedReply = tweetRepository.save(tweet);
-		tweet.getReplyTweets().add(savedReply);
+		replyFor.getReplyTweets().add(savedReply);
 		tweetRepository.save(replyFor);
 		return replyFor;
 	}
 	
-	public List<Tweet> getUserTweet(User user) {
-		return tweetRepository.findByRetweetUserContainsOrUser_IdAndIsTweetTrueOrderByCreatedAtDesc(user, user.getId());
+	public List<Tweet> getUserTweet(User user, Long userId) {
+		return tweetRepository.findByRetweetUserContainsOrUser_IdAndIsTweetTrueOrderByCreatedAtDesc(user, userId);
 		
 	}
 	
 	public List<Tweet> findByLikesContainsUser(User user) {
-		return tweetRepository.findByLikesUser_id(user.getId());
+		return tweetRepository.findByLikesUserId(user.getId());
 	}
 	
 }

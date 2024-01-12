@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,10 +23,9 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
 
 @Entity
-@Data 
+
 @Table(name="users")
 public class User {
 	@Id
@@ -40,6 +40,12 @@ public class User {
 	this.createdAt = new Date();
 	this.updatedAt = new Date();
 	}
+	public boolean isLogin_with_google() {
+		return login_with_google;
+	}
+	public void setLogin_with_google(boolean login_with_google) {
+		this.login_with_google = login_with_google;
+	}
 	@PreUpdate
 	protected void onUpdate(){
 	this.updatedAt = new Date();
@@ -50,11 +56,10 @@ public class User {
 	private String website;
 	private String birthDate;
 	
-	@NotEmpty(message = "Please enter an email")
+	
 	@Email(message="Email is invalid")
 	private String email;
 	
-	@NotEmpty(message="Please enter a password")
 	@Size(min=8, max=255, message="Password must be at least 8 characters")
 	@Column(columnDefinition="TEXT")
 	private String password;
@@ -63,7 +68,8 @@ public class User {
 	private String backgroundImage;
 	private String bio;
 	private boolean req_user;
-	private boolean isLogin_with_google;
+	@Column(name = "login_with_google", nullable = false, columnDefinition = "boolean default false")
+	private boolean login_with_google;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="user", cascade = CascadeType.ALL)
@@ -79,8 +85,7 @@ public class User {
 	@JsonIgnore
 	@ManyToMany
 	private List<User>followings = new ArrayList<>();
-	
-	
+
 	
 	public User() {
 	}
@@ -186,12 +191,6 @@ public class User {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public boolean isLogin_with_google() {
-		return isLogin_with_google;
-	}
-	public void setLogin_with_google(boolean isLogin_with_google) {
-		this.isLogin_with_google = isLogin_with_google;
 	}
 	
 	

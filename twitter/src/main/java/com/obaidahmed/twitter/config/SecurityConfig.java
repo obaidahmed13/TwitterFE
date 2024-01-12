@@ -30,7 +30,6 @@ public class SecurityConfig {
 		.csrf(csrf-> csrf.disable())
 		.cors(cors-> cors.configurationSource(corsConfigurationSource()))
 		.formLogin(withDefaults());
-		
 		return http.build();
 }
 
@@ -42,7 +41,7 @@ public class SecurityConfig {
 			@Override
 			public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 				CorsConfiguration cfg=new CorsConfiguration();
-				cfg.setAllowedOrigins(Arrays.asList("hhtp://localhost:3000"));
+				cfg.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
 				cfg.setAllowedMethods(Collections.singletonList("*"));
 				cfg.setAllowCredentials(true);
 				cfg.setAllowedHeaders(Collections.singletonList("*"));

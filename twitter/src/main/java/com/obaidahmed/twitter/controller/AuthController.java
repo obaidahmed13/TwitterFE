@@ -20,6 +20,9 @@ import com.obaidahmed.twitter.model.User;
 import com.obaidahmed.twitter.repository.UserRepository;
 import com.obaidahmed.twitter.response.AuthResponse;
 import com.obaidahmed.twitter.service.CustomUserDetails;
+import java.util.UUID;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -51,6 +54,7 @@ public class AuthController {
 		}
 		
 		User createdUser = new User();
+		createdUser.setFullName(fullName);
 		createdUser.setEmail(email);
 		createdUser.setPassword(passwordEncoder.encode(password));
 		createdUser.setBirthDate(birthDate);
@@ -95,5 +99,38 @@ public class AuthController {
 		
 		return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 	}
+	
+	
+	@PostMapping("/google/signin")
+	public ResponseEntity<AuthResponse> googleSignInOrSignUp(@RequestBody User user) throws UserException {
+	    String email = user.getEmail();
+	    String fullName = user.getFullName();
+	    String image = user.getImage();
+	    String password = user.getPassword();
+
+	    User existingUser = userRepository.findByEmail(email);
+
+	    if (existingUser != null) {
+	        Authentication authentication = authenticate(email, password);
+	        String token = jwtProvider.generateToken(authentication);
+	        AuthResponse res = new AuthResponse(token, true);
+	        return new ResponseEntity<>(res, HttpStatus.CREATED);
+	    } else {
+	        User createdUser = new User();
+	        createdUser.setFullName(fullName);
+	        createdUser.setEmail(email);
+	        createdUser.setPassword(passwordEncoder.encode(password));
+	        createdUser.setImage(image);
+
+	        User savedUser = userRepository.save(createdUser);
+
+	        Authentication authentication = new UsernamePasswordAuthenticationToken(email, password);
+	        SecurityContextHolder.getContext().setAuthentication(authentication);
+	        String token = jwtProvider.generateToken(authentication);
+	        AuthResponse res = new AuthResponse(token, true);
+	        return new ResponseEntity<>(res, HttpStatus.CREATED);
+	    }
+	}
+
 
 }

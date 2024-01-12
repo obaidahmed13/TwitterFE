@@ -26,23 +26,28 @@ public class UserService {
 	}
 	
 	public User findUserProfileByJwt(String jwt) throws UserException{
-		String email = jwtProvider.getEmailFromToken(jwt);
-		User user= userRepository.findByEmail(email);
-		if(user==null) {
-			throw new UserException("User not found with email"+email);
-		} else {
-		
-		return user;
-		}
-		
+		try {
+	        String email = jwtProvider.getEmailFromToken(jwt);
+	        User user = userRepository.findByEmail(email);
+
+	        if (user == null) {
+	            throw new UserException("User not found with email: " + email + " for JWT: " + jwt);
+	        }
+
+	        return user;
+	    } catch (Exception e) {
+	        throw new UserException("Error processing JWT: " + e.getMessage());
+	    }
 	}
 	
 	public User updateUser(Long userId, User req) throws UserException {
 		User user = findUserById(userId);
 		
 		if (req.getFullName()!=null) {
-			user.setFullName(req.getFullName());
-			
+			user.setFullName(req.getFullName());	
+		}
+		if (req.getFullName()!=null) {
+			user.setFullName(req.getFullName());	
 		}
 		if (req.getImage()!=null) {
 			user.setImage(req.getImage());
@@ -62,6 +67,7 @@ public class UserService {
 		if(req.getWebsite()!=null) {
 			user.setWebsite(req.getWebsite());
 		}
+		
 		return userRepository.save(user);
 		
 	}

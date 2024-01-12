@@ -2,7 +2,6 @@ package com.obaidahmed.twitter.repository;
 
 import java.util.List;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +17,9 @@ public interface TweetRepository extends JpaRepository<Tweet, Long> {
 	
 	List<Tweet> findByLikesContainingOrderByCreatedAtDesc(User user);
 	
-	List<Tweet> findByLikesUser_id(Long userId);
+	List<Tweet> findByLikesUserId(Long userId);
+	
+
 	
 
 }
