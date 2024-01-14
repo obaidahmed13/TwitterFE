@@ -11,8 +11,9 @@ import TabPanel from '@mui/lab/TabPanel'
 import TweetCard from "../Main/TweetCard";
 import ProfileModal from "./ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
-import { findUserById, followUser } from "../../Store/Auth/Action";
+import { findUserById, followUser, unfollowUser } from "../../Store/Auth/Action";
 import {  findTweetsByUserLikes, getUsersTweet } from "../../Store/Tweet/Action";
+
 
 
 export default function Profile() {
@@ -22,14 +23,17 @@ export default function Profile() {
   const handleBack = () => navigate(-1);
   const dispatch = useDispatch()
   const {id} = useParams()
-  console.log('id',id)
 
   useEffect(()=> {
     dispatch(getUsersTweet(id))
     dispatch(findUserById(id)) 
     dispatch(findTweetsByUserLikes(id))
-  }, [dispatch, id])
- 
+  }, [dispatch, id, auth.user.following])
+
+
+  const handleUnFollowUser = () => {
+    dispatch(unfollowUser(id))
+  };
   
   const handleFollowUser = () => {
     dispatch(followUser(id))
@@ -50,7 +54,7 @@ export default function Profile() {
       console.log("users tweets")
     }
   }
-
+ 
 
   return (
     <div>
@@ -77,7 +81,6 @@ export default function Profile() {
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
             src={auth.findUser?.image || null}
           />
-
           {auth.findUser?.req_user ? (
             <Button
               onClick={handleOpenProfile}
@@ -87,13 +90,21 @@ export default function Profile() {
               Edit Profile
             </Button>
           ) : (
-            <Button
+            <>
+              {auth.findUser?.followed? <Button
+              onClick={handleUnFollowUser}
+              variant="contained"
+              sx={{ borderRadius: "20px" }}
+            > Unfollow
+            </Button>:
+              <Button
               onClick={handleFollowUser}
               variant="contained"
               sx={{ borderRadius: "20px" }}
-            >
-              {auth.findUser?.followed? "Unfollow":"follow"}
-            </Button>
+            >Follow</Button>
+              }
+            </>
+            
           )}
         </div>
 
@@ -146,8 +157,7 @@ export default function Profile() {
             <Tab label="Likes" value="4" />
           </TabList>
         </Box>
-        <TabPanel value="1" >Tweets
-        {tweet.tweets?.map((item)=>  <TweetCard item={item} />)}</TabPanel>
+        <TabPanel value="1" >Tweets {tweet.tweets?.map((item)=>  <TweetCard item={item} />)}</TabPanel>
         <TabPanel value="2">Retweets {tweet.tweets?.map((item)=> {if(item.retweet) {return <TweetCard key={item.id} item={item} />} return null })}</TabPanel>
         <TabPanel value="3">Media {tweet.tweets?.map((item)=> {if(item?.image) {return  <img className="w-[28rem] border border-gray-400 p-2 my-4 " src={item?.image} alt="media" /> } return null })} </TabPanel>
         <TabPanel value="4">Likes {tweet.likedTweets?.map((item)=>  <TweetCard key={item.id} item={item} />)} </TabPanel>

@@ -17,7 +17,7 @@ export default function TweetDetails() {
         if(id){
             dispatch(findTweetsById(id))
         }
-    },[ id])
+    },[id])
 
     if(!tweet.tweet) {
         return null;

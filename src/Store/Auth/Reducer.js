@@ -20,6 +20,9 @@ import {
   SEARCH_USER_FAILURE,
   SEARCH_USER_REQUEST,
   SEARCH_USER_SUCCESS,
+  UNFOLLOW_USER_FAILURE,
+  UNFOLLOW_USER_REQUEST,
+  UNFOLLOW_USER_SUCCESS,
   UPDATE_USER_SUCCESS,
 } from "./ActionType";
 
@@ -37,6 +40,7 @@ export const authReducer = (state = initialState, action) => {
     case SEARCH_USER_REQUEST:
     case GOOGLE_LOGIN_REQUEST:
     case FOLLOW_USER_REQUEST:
+    case UNFOLLOW_USER_REQUEST:
       return { ...state, loading: true, error: null };
 
     case LOGIN_USER_SUCCESS:
@@ -56,6 +60,7 @@ export const authReducer = (state = initialState, action) => {
     case SEARCH_USER_FAILURE:
     case GOOGLE_LOGIN_FAILURE:
     case FOLLOW_USER_FAILURE:
+    case UNFOLLOW_USER_FAILURE:
       return { ...state, loading: false, error: action.payload };
 
     case FIND_USER_BY_ID_SUCCESS:
@@ -78,10 +83,18 @@ export const authReducer = (state = initialState, action) => {
       case FOLLOW_USER_SUCCESS:
         return {
           ...state,
-          loading: false,
           error: null,
           findUser: action.payload,
+          user: {...state.user, following: [...state.user.following, action.payload]}
+
         };
+
+        case UNFOLLOW_USER_SUCCESS:
+          let newUnfollowedArray= state.user.following.filter((user)=> user.id!== action.payload)
+          return {
+          ...state,
+          user: {...state.user, following: newUnfollowedArray }
+          }
 
     default:
       return state;

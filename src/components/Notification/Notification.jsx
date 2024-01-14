@@ -7,10 +7,9 @@ export default function Notification() {
     const {auth} = useSelector(store=> store)
 
     useEffect(() => {
-      }, [auth.user.followers, auth.user.following]);
+      }, [auth.followedUsers]);
     
   return (
-
     <div className='flex'>
         <div className='w-1/2'>
         <h1 className='font-bold text-lg mt-5'>Followers</h1>

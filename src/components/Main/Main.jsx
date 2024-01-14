@@ -50,9 +50,7 @@ export default function Main() {
     }
     
     useEffect(()=>{
-        console.log(auth.jwt)
         dispatch(getAllTweets())
-        console.log(tweet)
     }, [dispatch, tweet.like, tweet.retweet])
 
   return (
