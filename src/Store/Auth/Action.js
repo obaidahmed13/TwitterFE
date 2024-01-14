@@ -6,30 +6,34 @@ import { GOOGLE_LOGIN_FAILURE, GOOGLE_LOGIN_SUCCESS } from '../../Store/Auth/Act
 
 
 export const loginUser = (loginData)=> async(dispatch)=> {
+    
     try {
         const {data} = await axios.post(`${API_BASE_URL}/auth/signin`, loginData)
-        console.log("loggedin user", data)
-        console.log("jwt for signin ", data.jwt)
         if (data.jwt) {
             localStorage.setItem("jwt", data.jwt)
             dispatch({type:LOGIN_USER_SUCCESS, payload:data.jwt})
+            axios.create({
+                baseURL: API_BASE_URL,
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+                    "Content-Type":"application/json"
+                }
+            })
         }else {
-            
             dispatch({ type: LOGIN_USER_FAILURE, payload: 'Token not received' });
           }
-        
+
     } catch (error) {
         console.log("error", error)
         dispatch({type:LOGIN_USER_FAILURE, payload:error.message})
         
     }
+    
 }
 
 export const registerUser = (registerData)=> async(dispatch)=> {
     try {
         const {data} = await axios.post(`${API_BASE_URL}/auth/signup`, registerData)
-        console.log("created user", data)
-
         if (data.jwt) {
             localStorage.setItem("jwt", data.jwt)
         }
@@ -41,11 +45,12 @@ export const registerUser = (registerData)=> async(dispatch)=> {
     }
 }
 
-export const getUserProfile = (jwt)=> async(dispatch)=> {
+export const getUserProfile = ()=> async(dispatch)=> {
     try {
         const {data} = await axios.get(`${API_BASE_URL}/api/users/profile`, {
             headers: {
-                "Authorization":`Bearer ${jwt}`
+                "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+                "Content-Type":"application/json"
             }
         })
         dispatch({type: GET_USER_PROFILE_SUCCESS, payload:data})
@@ -59,7 +64,6 @@ export const getUserProfile = (jwt)=> async(dispatch)=> {
 export const findUserById = (userId)=> async(dispatch)=> {
     try {
         const {data} = await api.get(`/api/users/${userId}`)
-        console.log("find user by id", data)
         dispatch({type: FIND_USER_BY_ID_SUCCESS, payload:data})
     } catch (error) {
         console.log("error", error)
@@ -71,7 +75,6 @@ export const findUserById = (userId)=> async(dispatch)=> {
 export const updateUserProfile = (reqData)=> async(dispatch)=> {
     try {
         const {data} = await api.put(`/api/users/update`, reqData)
-        console.log("updated user dfsdfsdfdsfsdf", data)
         dispatch({type: UPDATE_USER_SUCCESS, payload:data})
     } catch (error) {
         console.log("error", error)
@@ -83,8 +86,11 @@ export const updateUserProfile = (reqData)=> async(dispatch)=> {
 export const followUser = (userId)=> async(dispatch)=> {
     try {
         const {data} = await api.put(`/api/users/${userId}/follow`)
-        console.log("follow user", data)
+        console.log(data, "FOLLOW USER DATAAAAAAAAAAAAAAA")
+
         dispatch({type: FOLLOW_USER_SUCCESS, payload:data})
+        
+        
     } catch (error) {
         console.log("error", error)
         dispatch({type:FOLLOW_USER_FAILURE, payload: error.message})
@@ -95,7 +101,6 @@ export const followUser = (userId)=> async(dispatch)=> {
 export const searchUser = (query)=> async(dispatch)=> {
     try {
         const {data} = await api.get(`/api/users/search?query=${encodeURIComponent(query)}`);
-        console.log("search user", data)
         dispatch({type: SEARCH_USER_SUCCESS, payload:data})
     } catch (error) {
         console.log("error", error)
@@ -110,26 +115,30 @@ export const logout = ()=> async(dispatch)=> {
     
 }
 
-export const googlelogin = (result)=> async (dispatch ) => {
+export const googlelogin= (result)=> async (dispatch ) => {
     try {
-        const data = await axios.post(`${API_BASE_URL}/auth/google`, {
+        const data = await axios.post(`${API_BASE_URL}/auth/google/signin`, {
             fullName: result.user.displayName,
             email: result.user.email,
             image: result.user.photoURL,
+            password: result.user.uid,
         }, {
             headers: {
                 'Content-Type': 'application/json',
             },
         });
-        console.log("this the jwt", data.jwt)
-        if (data.jwt) {
-            localStorage.setItem("jwt", data.jwt)
+        if (data.data.jwt) { 
+            localStorage.setItem("jwt", data.data.jwt);
+            dispatch({ type: GOOGLE_LOGIN_SUCCESS, payload: data.data.jwt });
+            console.log("Successful login !!!!!!!!!!!!");
+        } else {
+            console.log("JWT not found in the response:", data);
+            dispatch({ type: GOOGLE_LOGIN_FAILURE, payload: "JWT not found in the response" });
         }
-        dispatch({type:GOOGLE_LOGIN_SUCCESS, payload:data.jwt})
-        console.log("successfull login !!!!!!!!!!!!")
     } catch (error) {
         console.log("error", error)
         dispatch({type:GOOGLE_LOGIN_FAILURE, payload:error.message})
     }
 
 }
+

@@ -41,13 +41,13 @@ export default function Navigation(){
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                     <Avatar alt="user pic"
-                    src={auth.user.image}/>
+                    src={auth?.user?.image}/>
                     <div>
                         <div className="flex">
                             <span className="ml-1" >{auth.user?.fullName}</span><br/>
                             <img className="w-4 h-4 ml-1 mt-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="verified" />
                         </div>
-                        <span className="opacity-60">@{auth.user?.fullName.split(" ").join("_").toLowerCase()}</span>
+                        <span className="opacity-60">@{auth?.user?.fullName.split(" ").join("_").toLowerCase()}</span>
                     </div>
                     <Button ><LogoutIcon onClick={handleLogout}/></Button>
 

@@ -1,3 +1,4 @@
+
 import {
   FIND_USER_BY_ID_SUCCESS,
   FOLLOW_USER_FAILURE,
@@ -74,13 +75,13 @@ export const authReducer = (state = initialState, action) => {
         searchedUser: action.payload,
       };
 
-    case FOLLOW_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        error: null,
-        findUser: action.payload,
-      };
+      case FOLLOW_USER_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          error: null,
+          findUser: action.payload,
+        };
 
     default:
       return state;

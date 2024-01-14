@@ -8,9 +8,7 @@ import { Link } from 'react-router-dom'
 
 
 export default function RightBar() {
-
     const { auth } = useSelector((store) => store);
-
 
     const dispatch = useDispatch();
 
@@ -24,16 +22,16 @@ export default function RightBar() {
             <input 
             onChange= {(e)=> handleSearch(e.target.value)}
             type="text" placeholder="Search Twitter..." className='py-3 rounded-full text-gray-500 w-full pl-12 border-2' />
-            <div className='absolute top-0 left-0 pt-2 pl-2 '>
-               <Button><SearchIcon className='text-gray-500' 
-                onClick={handleSearch}
+            <div className='absolute top-1 left-2 pt-2 pl-2 '>
+              <SearchIcon className='text-gray-500 ' 
+                
                 >
-                </SearchIcon></Button> 
+                </SearchIcon>
 
             </div>
             
         </div>
-           {auth.searchedUser? <div className=' mt-1'>
+        <div className=' mt-1'>
             <ul >
             {auth.searchedUser?.map((user) => (
             <li key={user.id}>
@@ -45,8 +43,8 @@ export default function RightBar() {
           </div>
           </li>
             ))}
-            </ul>
-            </div> : null }
+            </ul> 
+            </div> 
         <section className='my-5 '>
             <h1 className='text-xl font-bold'>You are Verified!</h1>
             <h1 className='font-bold my-2'>You unlocked your blue checkmark. </h1>

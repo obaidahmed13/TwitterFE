@@ -20,6 +20,7 @@ export default function Main() {
     const validationSchema = Yup.object().shape({
         content:Yup.string().required("Text is required"),
     })
+    
     const handleSubmit= async(values, actions)=> {
         try {
             await dispatch(createTweet(values));
@@ -49,7 +50,9 @@ export default function Main() {
     }
     
     useEffect(()=>{
+        console.log(auth.jwt)
         dispatch(getAllTweets())
+        console.log(tweet)
     }, [dispatch, tweet.like, tweet.retweet])
 
   return (
@@ -61,7 +64,7 @@ export default function Main() {
             <div className='flex space-x-5'>
                 <Avatar 
                 alt='username' 
-                src={auth.user.image}
+                src={auth?.user?.image}
                 />
                 <div className='w-full'> 
                     <form onSubmit={formik.handleSubmit}>

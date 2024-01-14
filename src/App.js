@@ -15,15 +15,16 @@ function App() {
 
   useEffect( ()=>{
     if(jwt) {
-      dispatch(getUserProfile(jwt))
-      navigate("/")
+      
+      dispatch(getUserProfile())
+      navigate('/')
     }
-  },[auth.jwt])
+  },[jwt, dispatch])
 
   return (
  
       <Routes>
-        <Route path='/*' element={auth.user?<Home/>: <Authentication/>}/>
+        <Route path='/*' element={auth.user ? <Home/>: <Authentication/>}/>
       </Routes>
     
   );
