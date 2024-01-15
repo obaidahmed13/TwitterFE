@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { Button } from '@mui/material'
 import MoreIcon from '@mui/icons-material/MoreHoriz'
 import { useDispatch, useSelector } from 'react-redux'
-import { searchUser } from '../../Store/Auth/Action'
+import { clearSearch, searchUser } from '../../Store/Auth/Action'
 import { Link } from 'react-router-dom'
 
 
@@ -11,9 +11,14 @@ export default function RightBar() {
     const { auth } = useSelector((store) => store);
 
     const dispatch = useDispatch();
+    console.log(auth, "YOooooooooiojohohohoohohhohohohohohoho")
 
     const handleSearch = (query) => {
-        dispatch(searchUser(query))
+        if (query.trim() === '') {
+            dispatch(clearSearch());
+          } else {
+            dispatch(searchUser(query));
+          }
     }
     
   return (

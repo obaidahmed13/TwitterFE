@@ -1,5 +1,6 @@
 
 import {
+  CLEAR_SEARCH_SUCCESS,
   FIND_USER_BY_ID_SUCCESS,
   FOLLOW_USER_FAILURE,
   FOLLOW_USER_REQUEST,
@@ -95,6 +96,12 @@ export const authReducer = (state = initialState, action) => {
           ...state,
           user: {...state.user, following: newUnfollowedArray }
           }
+
+          case CLEAR_SEARCH_SUCCESS:
+            return {
+            ...state,
+            searchedUser: [],
+          };
 
     default:
       return state;

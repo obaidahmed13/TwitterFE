@@ -26,7 +26,6 @@ export default function Main() {
             await dispatch(createTweet(values));
             actions.resetForm();
             setSelectImage("")
-            console.log("values", values);
         } catch (error) {
             console.error("Error creating tweet", error);
         }
