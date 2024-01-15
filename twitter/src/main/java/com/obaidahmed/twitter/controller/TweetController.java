@@ -106,11 +106,11 @@ public class TweetController {
 	@GetMapping("/all")
 	public ResponseEntity<List<TweetDto>> getAllTweets( 
 			@RequestHeader("Authorization") String jwt) throws UserException {
+		
 		User user = userService.findUserProfileByJwt(jwt);
-		
 		List<Tweet> tweets= tweetService.findAllTweets();
-		
 		List<TweetDto> tweetDtos = TweetDtoMapper.toTweetDtos(tweets, user);
+		
 		
 		return new ResponseEntity<>(tweetDtos, HttpStatus.ACCEPTED);
 		

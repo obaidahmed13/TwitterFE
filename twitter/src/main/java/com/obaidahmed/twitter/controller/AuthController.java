@@ -20,9 +20,6 @@ import com.obaidahmed.twitter.model.User;
 import com.obaidahmed.twitter.repository.UserRepository;
 import com.obaidahmed.twitter.response.AuthResponse;
 import com.obaidahmed.twitter.service.CustomUserDetails;
-import java.util.UUID;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
