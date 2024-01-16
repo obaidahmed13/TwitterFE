@@ -37,7 +37,6 @@ export default function Profile() {
   
   const handleFollowUser = () => {
     dispatch(followUser(id))
-    console.log("follow User");
   };
 
   const [openProfileModal, setOpenProfileModal] = useState(false);

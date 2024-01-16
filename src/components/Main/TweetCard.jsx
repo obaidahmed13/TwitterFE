@@ -21,8 +21,6 @@ export default function TweetCard({item, userId}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {auth} = useSelector(store=>store)
-  console.log("auth user",auth)
-  console.log( "items ", item)
   
 let counter = 0;
 function randomViews() {
@@ -35,18 +33,15 @@ function randomViews() {
 
   const handleDeleteTweet = () => {
     dispatch(deleteTweet(item?.id))
-    console.log("delete tweet");
   };
 
 
   const handleCreateRetweet = () => {
     dispatch(createRetweet(item?.id))
-    console.log("Handle Create Retweet");
   };
 
   const handleLikeTweet = () => {
     dispatch(likeTweet(item?.id))
-    console.log("Handle Like Retweet");
   };
   
   return (

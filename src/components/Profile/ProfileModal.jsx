@@ -32,7 +32,6 @@ export default function ProfileModal({open, handleClose}) {
 
   const handleSubmit=(values)=> {
     dispatch(updateUserProfile(values))
-    console.log("handle submit", values)
     handleClose()
     setSelectedImage("")
   }

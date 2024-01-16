@@ -40,7 +40,6 @@ export default function ReplyModal({open, handleClose, item}) {
     actions.resetForm();
     setSelectImage("")
     navigate(`/tweet/${item.id}`)
-    console.log("handlesubmit", values)
   }
   const navigate = useNavigate();
 

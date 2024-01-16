@@ -5,10 +5,6 @@ import { blue } from "@mui/material/colors";
 import OAuth from "./OAuth";
 import { useNavigate } from "react-router-dom";
 
-
-
-
-
 export default function Authentication() {
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [currentPath, setCurrentPath] = useState('/');  // Set the default path

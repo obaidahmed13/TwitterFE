@@ -11,7 +11,6 @@ export default function RightBar() {
     const { auth } = useSelector((store) => store);
 
     const dispatch = useDispatch();
-    console.log(auth, "YOooooooooiojohohohoohohhohohohohohoho")
 
     const handleSearch = (query) => {
         if (query.trim() === '') {
